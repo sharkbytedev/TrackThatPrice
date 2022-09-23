@@ -6,18 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
-class Product extends Model
+class ProductUser extends Model
 {
     use HasFactory, HasUuids;
 
     protected $fillable = [
-        "product_url",
-        "product_name",
-        "update_interval",
-        "store"
+        "product_id",
+        "user_id"
     ];
 
-    public function users() {
-        return $this->belongsToMany(User::class, "product_users");
-    }
 }
+
+
