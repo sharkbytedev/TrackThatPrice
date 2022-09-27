@@ -14,10 +14,11 @@ class Product extends Model
         "product_url",
         "product_name",
         "update_interval",
-        "store"
+        "store",
+        "price"
     ];
 
     public function users() {
-        return $this->belongsToMany(User::class, "product_users");
+        return $this->belongsToMany(User::class, "product_user");
     }
 }
