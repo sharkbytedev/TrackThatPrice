@@ -68,7 +68,7 @@ class AmazonHandler extends ProductHandler
             return [false, $e];
         }
         $this->last_updated = new \DateTime();
-        
+
         if (isset($this->_obj)) {
             $this->_obj->last_status_code = $client->getResponse()->getStatusCode();
             $this->_update_db_model($update_db);

@@ -7,7 +7,7 @@ use App\Models\Product as ModelsProduct;
 // Class for handling updating products
 abstract class ProductHandler
 {
-    protected const store_name = "";
+    protected const store_name = '';
 
     protected $price;
 
@@ -70,7 +70,7 @@ abstract class ProductHandler
             'product_url' => $this->product_url,
             'store' => $this::store_name,
             'update_interval' => $update_interval,
-            'price' => $this->price
+            'price' => $this->price,
         ]);
         $this->_obj = $product;
         if ($save) {

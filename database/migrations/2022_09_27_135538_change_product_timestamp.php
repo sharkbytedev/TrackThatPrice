@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table("products", function(Blueprint $table) {
-            $table->timestamp("last_queried")->nullable()->default(NULL)->change();
+        Schema::table('products', function (Blueprint $table) {
+            $table->timestamp('last_queried')->nullable()->default(null)->change();
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table("products", function(Blueprint $table) {
-            $table->integer("last_queried")->change();
+        Schema::table('products', function (Blueprint $table) {
+            $table->integer('last_queried')->change();
         });
     }
 };
