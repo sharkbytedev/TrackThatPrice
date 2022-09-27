@@ -16,33 +16,6 @@ class AmazonHandler extends ProductHandler
 
     ];
 
-    public function __construct(string $url, Product $product = null)
-    {
-        if (isset($product) && $product->store != $this::store_name) {
-            throw new \Exception('Store must be amazon');
-        }
-        $valid = false;
-        // Check if the url has a valid base for this store
-        foreach ($this->url_base as $u) {
-            if (str_starts_with($url, $u)) {
-                $valid = true;
-                break;
-            }
-        }
-        if (! $valid) {
-            throw new \Exception("'$url' has an invalid base");
-        }
-        $this->product_url = $url;
-
-        if ($product) {
-            $this->_obj = $product;
-            $this->name = $product->product_name;
-            $this->image_url = $product->image_url;
-            $this->last_updated = $product->last_queried;
-            $this->price = $product->price;
-        }
-    }
-
     public static function fromDbModel(Product $product): ProductHandler
     {
         return new AmazonHandler($product->product_url, $product);
