@@ -16,7 +16,7 @@ class AmazonHandler extends ProductHandler
 
     ];
 
-    public static function fromDbModel(Product $product): ProductHandler
+    public static function from_db_model(Product $product): ProductHandler
     {
         return new AmazonHandler($product->product_url, $product);
     }

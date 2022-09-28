@@ -90,9 +90,9 @@ abstract class ProductHandler
     // and the second should be an exception
     abstract public function update(bool $update_db = false): array;
 
-    abstract public static function fromDbModel(ModelsProduct $product): ProductHandler;
+    abstract public static function from_db_model(ModelsProduct $product): ProductHandler;
 
-    public function createDbEntry(int $update_interval = 3600, bool $save = false): void
+    public function create_db_entry(int $update_interval = 3600, bool $save = false): void
     {
         $product = new ModelsProduct([
             'product_name' => $this->name,
