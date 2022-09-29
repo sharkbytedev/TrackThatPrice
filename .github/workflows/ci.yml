@@ -18,7 +18,7 @@ jobs:
     - name: Install front-end dependencies
       run: |
         npm install
-        npm run dev
+        vite build
  
     - name: Prepare Laravel Application
       run: |
