@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table("users", function(Blueprint $table) {
-            $table->uuid("id")->change();
+        Schema::table('users', function (Blueprint $table) {
+            $table->uuid('id')->change();
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table("users", function(Blueprint $table) {
-            $table->bigInteger("id")->change();
+        Schema::table('users', function (Blueprint $table) {
+            $table->bigInteger('id')->change();
         });
     }
 };
