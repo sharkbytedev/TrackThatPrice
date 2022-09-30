@@ -15,7 +15,7 @@ class Product extends Model
         'product_name',
         'update_interval',
         'store',
-        'price',
+        'price'
     ];
 
     public function users()
