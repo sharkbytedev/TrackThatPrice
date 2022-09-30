@@ -20,7 +20,9 @@ jobs:
         npm run build
 
     - name: Prepare application
-      run: php artisan key:generate
+      run: |
+        cp .env.ci .env
+        php artisan key:generate
 
     - name: Run test-suite
       run: ./vendor/bin/phpunit tests/
