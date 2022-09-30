@@ -21,4 +21,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/create-new-tracker', function () {
+    return view('create-new-tracker');
+});
+
 require __DIR__.'/auth.php';
