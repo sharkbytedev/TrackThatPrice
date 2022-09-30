@@ -1,29 +1,29 @@
-on: push
 name: CI
+on: push
 jobs:
   phpunit:
     runs-on: ubuntu-latest
     container:
       image: kirschbaumdevelopment/laravel-test-runner:8.1
- 
+
     steps:
     - uses: actions/checkout@v1
       with:
         fetch-depth: 3
- 
+
     - name: Install composer dependencies
-      run: |
-        composer install --no-scripts
-      
+      run: composer install --no-scripts
+
     - name: Install front-end dependencies
       run: |
         npm install
         npm run build
- 
-    - name: Prepare Laravel Application
-      run: |
-        cp .env.ci .env
-        php artisan key:generate
- 
-    - name: Run Testsuite
-      run: vendor/bin/phpunit tests/
+
+    - name: Prepare application
+      run: php artisan key:generate
+
+    - name: Run test-suite
+      run: ./vendor/bin/phpunit tests/
+
+    - name: Check code style
+      run: ./vendor/bin/pint --test
