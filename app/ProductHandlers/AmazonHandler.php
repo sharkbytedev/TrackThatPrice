@@ -26,7 +26,7 @@ class AmazonHandler extends ProductHandler
         $client = new Client();
         $client->setServerParameter('HTTP_USER_AGENT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36');
         $website = $client->request('GET', $this->product_url);
-
+        $this->last_status_code = $client->getResponse()->getStatusCode();
         try {
             // Gets the text of the first div with the id #productTitle
             $this->name = $website->filter('#productTitle')->eq(0)->text();

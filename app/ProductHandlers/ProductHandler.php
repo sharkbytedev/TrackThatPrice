@@ -15,6 +15,8 @@ abstract class ProductHandler
 
     protected $name;
 
+    protected $last_status_code;
+
     protected $last_updated;
 
     protected $image_url;
@@ -47,6 +49,7 @@ abstract class ProductHandler
             $this->image_url = $product->image_url;
             $this->last_updated = $product->last_queried;
             $this->price = $product->price;
+            $this->last_status_code = $product->last_status_code;
         }
     }
 
@@ -83,6 +86,7 @@ abstract class ProductHandler
             'last_updated' => $this->last_updated,
             'product_url' => $this->product_url,
             'image_url' => $this->image_url,
+            'last_status_code' => $this->last_status_code
         ]);
     }
 
