@@ -17,8 +17,6 @@ abstract class ProductHandler
 
     protected $last_status_code;
 
-    protected $last_updated;
-
     protected $image_url;
 
     protected $product_url;
@@ -68,11 +66,6 @@ abstract class ProductHandler
         return $this->product_url;
     }
 
-    public function get_last_updated(): \DateTime
-    {
-        return $this->last_updated;
-    }
-
     public function get_image_url(): ?string
     {
         return $this->image_url;
@@ -83,7 +76,6 @@ abstract class ProductHandler
         return json_encode([
             'name' => $this->name,
             'price' => $this->price,
-            'last_updated' => $this->last_updated,
             'product_url' => $this->product_url,
             'image_url' => $this->image_url,
             'last_status_code' => $this->last_status_code

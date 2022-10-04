@@ -41,7 +41,6 @@ class AmazonHandler extends ProductHandler
         } catch (InvalidArgumentException $e) {
             return new HandlerUpdateDetails(false, $e);
         }
-        $this->last_updated = new \DateTime();
 
         // No errors were caught, so return true
         return new HandlerUpdateDetails(true);
