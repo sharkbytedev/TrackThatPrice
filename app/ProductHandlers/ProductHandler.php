@@ -78,7 +78,7 @@ abstract class ProductHandler
             'price' => $this->price,
             'product_url' => $this->product_url,
             'image_url' => $this->image_url,
-            'last_status_code' => $this->last_status_code
+            'last_status_code' => $this->last_status_code,
         ]);
     }
 
@@ -87,5 +87,4 @@ abstract class ProductHandler
     abstract public function update(): HandlerUpdateDetails;
 
     abstract public static function from_db_model(ModelsProduct $product): ProductHandler;
-
 }

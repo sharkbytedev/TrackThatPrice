@@ -8,15 +8,15 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::table("products", function (Blueprint $table) {
-            $table->bigInteger("price")->nullable()->change();
+        Schema::table('products', function (Blueprint $table) {
+            $table->bigInteger('price')->nullable()->change();
         });
     }
 
     public function down()
     {
-        Schema::table("products", function (Blueprint $table) {
-            $table->float("price")->nullable()->change();
+        Schema::table('products', function (Blueprint $table) {
+            $table->float('price')->nullable()->change();
         });
     }
 };
