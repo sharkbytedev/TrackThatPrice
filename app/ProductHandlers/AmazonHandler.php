@@ -33,7 +33,8 @@ class AmazonHandler extends ProductHandler
             // On amazon, the price is divided into 3 parts: Symbol, whole, and fraction
             $price_whole = $website->filter('.a-price-whole')->eq(0)->text();
             $price_fraction = $website->filter('.a-price-fraction')->eq(0)->text();
-            $this->price = floatval($price_whole.$price_fraction);
+            // Store price in cents, so multiply price by 100
+            $this->price = floatval($price_whole.$price_fraction) * 100;
 
             // Get an image url. Often on Amazon there's more than one, so we'll just get the first one.
             $this->image_url = $website->filter('#imgTagWrapperId')->filter('img')->eq(0)->attr('src');
