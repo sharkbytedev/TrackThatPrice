@@ -88,7 +88,7 @@ abstract class ProductHandler
 
     // Should return a 2 element array. The first element should be a boolean,
     // and the second should be an exception
-    abstract public function update(): array;
+    abstract public function update(): HandlerUpdateDetails;
 
     abstract public static function from_db_model(ModelsProduct $product): ProductHandler;
 

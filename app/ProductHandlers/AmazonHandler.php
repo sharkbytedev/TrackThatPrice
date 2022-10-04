@@ -21,7 +21,7 @@ class AmazonHandler extends ProductHandler
         return new AmazonHandler($product->product_url, $product);
     }
 
-    public function update(): array
+    public function update(): HandlerUpdateDetails
     {
         $client = new Client();
         $client->setServerParameter('HTTP_USER_AGENT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36');
@@ -38,11 +38,11 @@ class AmazonHandler extends ProductHandler
             // Get an image url. Often on Amazon there's more than one, so we'll just get the first one.
             $this->image_url = $website->filter('#imgTagWrapperId')->filter('img')->eq(0)->attr('src');
         } catch (InvalidArgumentException $e) {
-            return [false, $e];
+            return new HandlerUpdateDetails(false, $e);
         }
         $this->last_updated = new \DateTime();
 
         // No errors were caught, so return true
-        return [true, ''];
+        return new HandlerUpdateDetails(true);
     }
 }
