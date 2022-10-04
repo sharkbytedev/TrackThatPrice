@@ -21,7 +21,7 @@ class AmazonHandler extends ProductHandler
         return new AmazonHandler($product->product_url, $product);
     }
 
-    public function update(bool $update_db = false): array
+    public function update(): array
     {
         $client = new Client();
         $client->setServerParameter('HTTP_USER_AGENT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36');
@@ -41,11 +41,6 @@ class AmazonHandler extends ProductHandler
             return [false, $e];
         }
         $this->last_updated = new \DateTime();
-
-        if (isset($this->_obj)) {
-            $this->_obj->last_status_code = $client->getResponse()->getStatusCode();
-            $this->_update_db_model($update_db);
-        }
 
         // No errors were caught, so return true
         return [true, ''];

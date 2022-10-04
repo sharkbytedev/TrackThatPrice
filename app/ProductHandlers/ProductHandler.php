@@ -88,35 +88,8 @@ abstract class ProductHandler
 
     // Should return a 2 element array. The first element should be a boolean,
     // and the second should be an exception
-    abstract public function update(bool $update_db = false): array;
+    abstract public function update(): array;
 
     abstract public static function from_db_model(ModelsProduct $product): ProductHandler;
 
-    public function create_db_entry(int $update_interval = 3600, bool $save = false): void
-    {
-        $product = new ModelsProduct([
-            'product_name' => $this->name,
-            'product_url' => $this->product_url,
-            'store' => $this::store_name,
-            'update_interval' => $update_interval,
-            'price' => $this->price,
-        ]);
-        $this->_obj = $product;
-        if ($save) {
-            $product->save();
-        }
-    }
-
-    protected function _update_db_model(bool $save = false): void
-    {
-        $this->_obj->product_name = $this->name;
-        $this->_obj->product_url = $this->product_url;
-        $this->_obj->image_url = $this->image_url;
-        $this->_obj->last_queried = $this->last_updated;
-        $this->_obj->store = $this::store_name;
-        $this->_obj->price = $this->price;
-        if ($save) {
-            $this->_obj->save();
-        }
-    }
 }
