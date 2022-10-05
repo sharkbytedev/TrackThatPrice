@@ -7,8 +7,8 @@ use Goutte\Client;
 class AmazonHandler implements ProductHandler
 {
     const base_url = [
-        "https://www.amazon.ca/",
-        "https://www.amazon.com/",
+        'https://www.amazon.ca/',
+        'https://www.amazon.com/',
     ];
 
     protected string $product_url;
@@ -32,7 +32,6 @@ class AmazonHandler implements ProductHandler
 
     public function crawl(): ProductDetails
     {
-
         $client = new Client();
         $client->setServerParameter('HTTP_USER_AGENT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36');
         $website = $client->request('GET', $this->product_url);
@@ -40,7 +39,7 @@ class AmazonHandler implements ProductHandler
         $details = new ProductDetails();
         $details->status_code = $client->getResponse()->getStatusCode();
         $details->product_url = $this->product_url;
-        
+
         // Gets the text of the first div with the id #productTitle
         $details->name = $website->filter('#productTitle')->eq(0)->text();
         // On amazon, the price is divided into 3 parts: Symbol, whole, and fraction
