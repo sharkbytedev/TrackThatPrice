@@ -9,7 +9,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('product_user', function (Blueprint $table) {
-            $table->id()->change();
+            $table->dropColumn('id');
         });
     }
 
