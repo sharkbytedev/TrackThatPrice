@@ -16,7 +16,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('product_user', function (Blueprint $table) {
-            $table->uuid('id')->change();
+            $table->uuid('id');
         });
     }
 };
