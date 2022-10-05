@@ -46,6 +46,6 @@ class User extends Authenticatable
     // The products the user is subscribed to
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'product_user');
+        return $this->belongsToMany(Product::class, 'product_user')->withTimestamps();
     }
 }
