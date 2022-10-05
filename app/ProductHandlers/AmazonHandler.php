@@ -24,7 +24,7 @@ class AmazonHandler implements ProductHandler
             }
         }
         if (! $valid) {
-            throw new \Exception("'$url' has an invalid base");
+            throw new \InvalidArgumentException("'$url' has an invalid base");
         }
 
         $this->product_url = $url;
