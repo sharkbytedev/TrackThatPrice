@@ -16,10 +16,6 @@ return new class extends Migration
         Schema::table('products', function (Blueprint $table) {
             $table->uuid('id')->primary()->change();
         });
-
-        Schema::table('product_user', function (Blueprint $table) {
-            $table->uuid('id')->primary()->change();
-        });
     }
 
     /**
@@ -30,10 +26,6 @@ return new class extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->uuid('id')->change();
-        });
-
-        Schema::table('product_user', function (Blueprint $table) {
             $table->uuid('id')->change();
         });
     }
