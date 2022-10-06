@@ -2,6 +2,7 @@
 
 namespace App\ProductHandlers;
 
+use App\Models\Product;
 use Goutte\Client;
 
 class AmazonHandler implements ProductHandler
@@ -13,32 +14,16 @@ class AmazonHandler implements ProductHandler
 
     protected string $product_url;
 
-    public function __construct(string $url)
+    public static function crawl(Product $product): ProductDetails
     {
-        $valid = false;
-        // Check if the url has a valid base for this store
-        foreach ($this::base_url as $u) {
-            if (str_starts_with($url, $u)) {
-                $valid = true;
-                break;
-            }
-        }
-        if (! $valid) {
-            throw new \InvalidArgumentException("'$url' has an invalid base");
-        }
-
-        $this->product_url = $url;
-    }
-
-    public function crawl(): ProductDetails
-    {
+        $url = $product->product_url;
         $client = new Client();
         $client->setServerParameter('HTTP_USER_AGENT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36');
-        $website = $client->request('GET', $this->product_url);
+        $website = $client->request('GET', $url);
 
         $details = new ProductDetails();
         $details->status_code = $client->getResponse()->getStatusCode();
-        $details->product_url = $this->product_url;
+        $details->product_url = $url;
 
         // Gets the text of the first div with the id #productTitle
         $details->name = $website->filter('#productTitle')->eq(0)->text();

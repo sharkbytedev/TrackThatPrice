@@ -2,8 +2,9 @@
 
 namespace App\ProductHandlers;
 
-// Interface for handling updating products
+use App\Models\Product;
+
 interface ProductHandler
 {
-    public function crawl(): ProductDetails;
+    public static function crawl(Product $product): ProductDetails;
 }
