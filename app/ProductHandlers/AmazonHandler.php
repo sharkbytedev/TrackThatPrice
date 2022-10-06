@@ -22,7 +22,6 @@ class AmazonHandler implements ProductHandler
         $website = $client->request('GET', $url);
 
         $details = new ProductDetails();
-        $details->status_code = $client->getResponse()->getStatusCode();
 
         // Gets the text of the first div with the id #productTitle
         $details->name = $website->filter('#productTitle')->eq(0)->text();
