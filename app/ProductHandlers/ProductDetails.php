@@ -2,7 +2,6 @@
 
 namespace App\ProductHandlers;
 
-
 class ProductDetails
 {
     public int $price;

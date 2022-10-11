@@ -2,4 +2,6 @@
 
 namespace App\Exceptions\QueryExceptions;
 
-class GoneError extends QueryException {};
+class GoneError extends QueryException
+{
+}

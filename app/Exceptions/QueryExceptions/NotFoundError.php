@@ -2,4 +2,6 @@
 
 namespace App\Exceptions\QueryExceptions;
 
-class NotFoundError extends QueryException {}
+class NotFoundError extends QueryException
+{
+}

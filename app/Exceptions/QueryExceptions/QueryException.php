@@ -4,6 +4,6 @@ namespace App\Exceptions\QueryExceptions;
 
 use Exception;
 
-class QueryException extends Exception {
-
+class QueryException extends Exception
+{
 }

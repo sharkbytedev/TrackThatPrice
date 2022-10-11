@@ -27,7 +27,7 @@ class UpdateProductData implements ShouldQueue
 
     public function handle()
     {
-        Log::withContext(["product_id"=>$this->product->id]);
+        Log::withContext(['product_id' => $this->product->id]);
         try {
             $details = ProductHandlerFactory::new($this->product)->crawl($this->product);
             $this->product->product_name = $details->name;
@@ -39,7 +39,8 @@ class UpdateProductData implements ShouldQueue
 
         // Server errors are likely temporary, so simply ignore it and log the error
         catch (QueryExceptions\ServerError $e) {
-            Log::notice("Recieved a 500 response while updating a product");
+            Log::notice('Recieved a 500 response while updating a product');
+
             return;
         }
         // Gone means the resource will never return, so mark the product as invalid.
@@ -47,25 +48,27 @@ class UpdateProductData implements ShouldQueue
         catch (QueryExceptions\GoneError | QueryExceptions\NotFoundError $e) {
             $this->product->valid = false;
             $this->product->save();
-            Log::notice("Product resource not found/gone");
+            Log::notice('Product resource not found/gone');
+
             return;
         }
         // A bad request could be either the user's fault or the handler's fault, so disable and log the error
         catch (QueryExceptions\BadRequestError $e) {
             $this->product->valid = false;
             $this->product->save();
-            Log::alert("Recieved a 400 while updating a product");
+            Log::alert('Recieved a 400 while updating a product');
+
             return;
-        }
-        catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             // For now just log the error and disable. In the future, this will notify users/maintainers
             $this->product->valid = false;
             $this->product->save();
-            Log::error("Error while parsing data from product", ["exception"=>$e]);
+            Log::error('Error while parsing data from product', ['exception' => $e]);
+
             return;
-        }
-        catch (Exception $e) {
-            Log::error("Unhandled error while updating product data", ["exception"=>$e]);
+        } catch (Exception $e) {
+            Log::error('Unhandled error while updating product data', ['exception' => $e]);
+
             return;
         }
     }

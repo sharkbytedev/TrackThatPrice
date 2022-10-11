@@ -2,5 +2,6 @@
 
 namespace App\Exceptions\QueryExceptions;
 
-
-class ServerError extends QueryException {}
+class ServerError extends QueryException
+{
+}

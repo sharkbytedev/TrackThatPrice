@@ -2,10 +2,14 @@
 
 namespace App\ProductHandlers;
 
+use App\Exceptions\QueryExceptions\BadRequestError;
+use App\Exceptions\QueryExceptions\GoneError;
+use App\Exceptions\QueryExceptions\NotFoundError;
+use App\Exceptions\QueryExceptions\QueryException;
+use App\Exceptions\QueryExceptions\ServerError;
 use App\Models\Product;
 use Goutte\Client;
 use InvalidArgumentException;
-use App\Exceptions\QueryExceptions\{NotFoundError, ServerError, BadRequestError, GoneError, QueryException};
 
 class AmazonHandler implements ProductHandler
 {
@@ -14,20 +18,21 @@ class AmazonHandler implements ProductHandler
         'https://www.amazon.com/',
     ];
 
-    protected static function handleStatusCode(int $code) {
+    protected static function handleStatusCode(int $code)
+    {
         switch ($code) {
             case 200:
                 break;
             case 500:
-                throw new ServerError("Server responded with 500");
+                throw new ServerError('Server responded with 500');
                 break;
             case 404:
-                throw new NotFoundError("Server responded with 404");
+                throw new NotFoundError('Server responded with 404');
                 break;
             case 410:
-                throw new GoneError("Server responded with 410");
+                throw new GoneError('Server responded with 410');
             case 400:
-                throw new BadRequestError("Server responded with 500");
+                throw new BadRequestError('Server responded with 500');
                 break;
             default:
                 throw new QueryException("Server responded with non-200 status code $code");
@@ -58,8 +63,7 @@ class AmazonHandler implements ProductHandler
         try {
             // Get an image url. Often on Amazon there's more than one, so we'll just get the first one.
             $details->image_url = $website->filter('#imgTagWrapperId')->filter('img')->eq(0)->attr('src');
-        }
-        catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $details->image_url = null;
         }
 
