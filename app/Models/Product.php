@@ -18,6 +18,10 @@ class Product extends Model
         'price',
     ];
 
+    protected $attributes = [
+        "update_interval"=>24,
+    ];
+
     public function users()
     {
         return $this->belongsToMany(User::class, 'product_user');
