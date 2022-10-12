@@ -9,6 +9,7 @@ use App\Exceptions\QueryExceptions\QueryException;
 use App\Exceptions\QueryExceptions\ServerError;
 use App\Models\Product;
 use Goutte\Client;
+use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 
 class AmazonHandler implements ProductHandler
@@ -65,6 +66,7 @@ class AmazonHandler implements ProductHandler
             $details->image_url = $website->filter('#imgTagWrapperId')->filter('img')->eq(0)->attr('src');
         } catch (InvalidArgumentException $e) {
             $details->image_url = null;
+            Log::notice("Image for product not found", ["product_id"=>$product->id]);
         }
 
         return $details;
