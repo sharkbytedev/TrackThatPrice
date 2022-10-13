@@ -9,6 +9,4 @@ class ProductDetails
     public string $name;
 
     public string $image_url;
-
-    public string $product_url;
 }
