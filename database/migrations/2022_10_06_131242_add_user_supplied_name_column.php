@@ -8,15 +8,15 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->timestamp('last_queried')->nullable()->default(null)->change();
+        Schema::table('product_user', function (Blueprint $table) {
+            $table->string('tracker_name', 100)->nullable();
         });
     }
 
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->integer('last_queried')->change();
+        Schema::table('product_user', function (Blueprint $table) {
+            $table->dropColumn('tracker_name');
         });
     }
 };

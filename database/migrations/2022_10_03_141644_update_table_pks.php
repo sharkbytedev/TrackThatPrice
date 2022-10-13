@@ -9,14 +9,14 @@ return new class extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->timestamp('last_queried')->nullable()->default(null)->change();
+            $table->uuid('id')->primary()->change();
         });
     }
 
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->integer('last_queried')->change();
+            $table->uuid('id')->change();
         });
     }
 };
