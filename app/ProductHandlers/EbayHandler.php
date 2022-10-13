@@ -2,13 +2,13 @@
 
 namespace App\ProductHandlers;
 
-use App\Models\Product;
-use Goutte\Client;
 use App\Exceptions\QueryExceptions\BadRequestError;
 use App\Exceptions\QueryExceptions\GoneError;
 use App\Exceptions\QueryExceptions\NotFoundError;
 use App\Exceptions\QueryExceptions\QueryException;
 use App\Exceptions\QueryExceptions\ServerError;
+use App\Models\Product;
+use Goutte\Client;
 
 class EbayHandler implements ProductHandler
 {
@@ -48,7 +48,7 @@ class EbayHandler implements ProductHandler
         $client->setServerParameter('HTTP_USER_AGENT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36');
         $website = $client->request('GET', $product->product_url);
         EbayHandler::handleStatusCode($client->getResponse()->getStatusCode());
-        
+
         $details = new ProductDetails();
         $details->name = $website->filter('h1[class="x-item-title__mainTitle"] > span')->eq(0)->text();
         $price_text = explode('$', $website->filter('#prcIsum')->eq(0)->text());
@@ -62,7 +62,6 @@ class EbayHandler implements ProductHandler
         $matches = [];
         preg_match($url_pattern, $img_script_text, $matches);
         $details->image_url = $matches[0];
-
 
         // No errors were caught, so return true
         return $details;
