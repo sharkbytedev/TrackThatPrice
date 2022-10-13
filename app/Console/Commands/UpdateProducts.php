@@ -2,10 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use App\Models\Product;
 use App\Jobs\UpdateProductData;
-use Illuminate\Support\Facades\Log;
+use App\Models\Product;
+use Illuminate\Console\Command;
 
 class UpdateProducts extends Command
 {
@@ -15,8 +14,8 @@ class UpdateProducts extends Command
 
     public function handle()
     {
-        $this->info("Updating products with interval ".strval($this->argument("interval")));
-        $this->withProgressBar(Product::where("update_interval", $this->argument("interval"))->where("valid", true)->get(), function($product) {
+        $this->info('Updating products with interval '.strval($this->argument('interval')));
+        $this->withProgressBar(Product::where('update_interval', $this->argument('interval'))->where('valid', true)->get(), function ($product) {
             UpdateProductData::dispatch($product);
         });
     }

@@ -19,7 +19,7 @@ class Product extends Model
     ];
 
     protected $attributes = [
-        "update_interval"=>24,
+        'update_interval' => 24,
     ];
 
     public function users()
