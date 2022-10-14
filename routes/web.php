@@ -25,4 +25,8 @@ Route::get('/create-new-tracker', function () {
     return view('create-new-tracker');
 });
 
+Route::get('/trackers', function () {
+    return view('trackers');
+});
+
 require __DIR__.'/auth.php';

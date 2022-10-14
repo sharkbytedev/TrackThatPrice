@@ -1,44 +1,57 @@
-//page for creating a new tracker
+page for creating a new tracker
 <!DOCTYPE html>
 <body>
-<?php use App\ProductHandlers\AmazonHandler; 
+<?php 
+use App\ProductHandlers\Details;
+use Illuminate\Support\Facades\Auth;
 
-$servername = "localhost";
-$username = "username";
-$password = "password";
-$dbname = "myDB";
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if (Auth::check() == false){
+    header("Location: localhost:8000/login");
+    exit();
 }
 ?>
 
-<form action="create-new-tracker.blade.php" method="post">
-Tracker Name: <input type="text" name="trackerName"><br>
-Store:  
-<select name="store">  
-    <option value="">Select a Store</option>}  
-    <option value="Amazon">Amazon</option>
-    <option value="Ebay">Ebay</option>
-</select>
+<form method="get" action="<?=$_SERVER["PHP_SELF"]?>">
 Product URL: <input type="text" name="productURL"><br>
-
-<input type="submit">
+Store: <select name="store">
+	<option value="">Select a store</option>
+	<option value="Amazon">Amazon</option>
+	<option value="Ebay">Ebay</option>
+	<option value="Wayfair">Wayfair</option>
+</select><br>
+<input type="submit" value="Submit" name="Submit1">
 </form> 
 
 <?php
-$sql = "INSERT INTO  (product_name, store, product_url)
-VALUES ($_POST["trackername"], $_POST["store"], $_POST["productURL"])";
+$product = new App\Models\Product();
+if(isset($_GET["Submit1"])){
+    //$handler = App\ProductHandlers\ProductHandlerFactory::new($product);
+    //$product_details = $handler::crawl($product);
 
-if ($conn->query($sql) === TRUE) {
-  echo "New record created successfully";
-} else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
+    $product->product_url = $_GET["productURL"];
+    $product->product_name = "default"; //after merging with product handler branch, remove this and replace it with the commented code underneath it
+    //$product->product_name = $product_details->name;
+    $product->update_interval = 0;
+    $product->store = $_GET["store"];
+    //after merging with product handler branch, uncomment the code below
+    //if($product_details->image_url != null){
+    //    $product->image_url = $product_details->image_url;
+    //}
+    //else{
+    //    $product->image_url = "https://cdn.discordapp.com/attachments/620091571521454082/1027339673225396285/unknown.png"; //this is a placeholder
+    //}
+    //$product->price = $product_details->price;
+    $product->save();
+    $lastid = $product->id;
+    Auth::user()->products()->attach($lastid);
+    
+    
+    echo $product->product_url;
+    echo $product->product_name;
+    echo $product->update_interval;
+    echo $product->store;
 }
 
-$conn->close();
 ?>
 
 </body>
