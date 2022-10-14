@@ -15,6 +15,11 @@ class Product extends Model
         'product_name',
         'update_interval',
         'store',
+        'price',
+    ];
+
+    protected $attributes = [
+        'update_interval' => 24,
     ];
 
     public function users()
