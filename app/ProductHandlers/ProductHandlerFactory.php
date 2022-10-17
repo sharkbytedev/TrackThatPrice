@@ -3,6 +3,7 @@
 namespace App\ProductHandlers;
 
 use App\Models\Product;
+use InvalidArgumentException;
 
 class ProductHandlerFactory
 {
@@ -13,7 +14,7 @@ class ProductHandlerFactory
                 return new AmazonHandler();
                 break;
             default:
-                return null;
+                throw new InvalidArgumentException("'$product->store' is not a supported store name");
         }
     }
 }
