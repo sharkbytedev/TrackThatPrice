@@ -20,21 +20,21 @@
             <div id="features">
                 <h3 class="text-xl"><b>Features</b></h3>
                 <div class="sm:flex flex-column justify-center w-4/5 text-center m-auto">
-                    <div class="border-0 p-4 w-full sm:w-1/3 m-2 rounded-xl shadow-md bg-slate-700 flex-none">
+                    <div class="border-0 p-4 w-full sm:w-1/3 m-2 rounded-xl shadow-md bg-slate-50 dark:bg-slate-700 flex-none">
                         <b>Get notified</b>
                         <p class="text-left">Set when you want to be notified about a price change, and we'll let you know via email and/or desktop notification.</p>
                         <div class="justify-center flex text-center w-full">
                             <img class="select-none m-2" src="/images/bell.svg" alt="" srcset="">
                         </div>
                     </div>
-                    <div class="border-0 p-4 w-full sm:w-1/3 m-2 rounded-xl shadow-md bg-slate-700 flex-none">
+                    <div class="border-0 p-4 w-full sm:w-1/3 m-2 rounded-xl shadow-md bg-slate-50 dark:bg-slate-700 flex-none">
                         <b>Wide support</b>
                         <p class="text-left">With over {insert number of stores} stores supported, you can track prices on any of your favourite online stores.</p>
                         <div class="justify-center flex text-center w-full">
                             <img class="select-none m-2" src="/images/tool.svg" alt="" srcset="">
                         </div>
                     </div>
-                    <div class="border-0 p-4 w-full sm:w-1/3 m-2 rounded-xl shadow-md bg-slate-700 flex-none">
+                    <div class="border-0 p-4 w-full sm:w-1/3 m-2 rounded-xl shadow-md bg-slate-50 dark:bg-slate-700 flex-none">
                         <b>Historical data</b>
                         <p class="text-left">See the history of the price of a product, with data being collected as long as someone is tracking that product.</p>
                         <div class="justify-center flex text-center w-full">
