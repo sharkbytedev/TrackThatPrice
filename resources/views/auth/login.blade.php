@@ -37,7 +37,7 @@
                         </x-primary-button>
                     </div>
                     <br>
-                    <div class="w-full bg-slate-200 flex-row flex">
+                    <div class="w-full flex-row flex">
                         <div class="w-1/2 flex justify-start">
                             @if (Route::has('password.request'))
                                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
