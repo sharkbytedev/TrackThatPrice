@@ -2,7 +2,7 @@ page for creating a new tracker
 <!DOCTYPE html>
 <body>
 
-<form method="post" action="\routes\web.php">
+<form method="post" action="">
     @csrf
     Product URL: <input type="text" name="productURL"><br>
     Store: <select name="store">

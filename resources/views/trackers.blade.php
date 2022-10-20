@@ -6,27 +6,27 @@
 
 <br>
 @if (count($products) > 0)
-    @for($i = 0; $i < count($products); $i++)
-        <div class="border-solid border-2 border-blue-900 rounded p-1 mx-auto max-x-l">
-            <img src="{{$products[$i]->image_url}}" class="border-solid border-2 border-blue-900 float-left w-32 h-32 object-contain">
+    @foreach($products as $product)
+        <div class="border-solid border-2 border-blue-900 rounded p-1 mx-auto max-w-3xl overflow-hidden">
+            <img src="{{$product->image_url}}" class="border-solid border-2 border-blue-900 float-left w-32 h-32 object-contain mr-1">
 
             <p class="text-xl max-x-xl"> <!-- Large product name text -->
-                @if(strlen($products[$i]->product_name) < 75)
-                    {{$products[$i]->product_name}} 
+                @if(strlen($product->product_name) < 75)
+                    {{$product->product_name}} 
                 @else
-                    {{(substr($products[$i]->product_name, 0, 75). "...")}}
+                    {{(substr($product->product_name, 0, 75). "...")}}
                 @endif
                 <br>
             </p>
 
             <p> 
-                {{$products[$i]->store}} <br>
-                {{$products[$i]->price}} <br>
-                <!-- {{$products[$i]->product_url}} -->
+                {{$product->store}} <br>
+                {{$product->price / 100 . "$"}} <br>
+                <!-- {{$product->product_url}} -->
             </p>
         </div>
         <br>
-    @endfor
+    @endforeach
 @else
     <p> No products found </p>
 @endif
