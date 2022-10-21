@@ -55,7 +55,7 @@ Route::match(['get', 'post'], '/create-new-tracker', function () {
         $productCreated = false;
     }
 
-    return view('create-new-tracker', ["productCreated" => $productCreated], ["product" => $product]);
+    return view('create-new-tracker', ["productCreated" => $productCreated, "product" => $product]);
 })->middleware(['auth'])->name('create-new-tracker');
 
 Route::get('/trackers', function () {
