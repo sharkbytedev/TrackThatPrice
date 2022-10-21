@@ -12,6 +12,9 @@ class ProductHandlerFactory
             case 'amazon':
                 return new AmazonHandler();
                 break;
+            case 'ebay':
+                return new EbayHandler();
+                break;
             default:
                 return null;
         }
