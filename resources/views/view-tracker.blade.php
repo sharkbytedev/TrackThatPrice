@@ -1,8 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="w-full h-full flex flex-row">
-            <div class="w-1/2 h-full">
-                {{ $product->product_name }}
+            <div class="w-1/2 h-full overflow-hidden text-ellipsis px-1">
+                <p>{{ $product->product_name }}</p>
             </div>
             <div class="w-1/2 h-full justify-items-end">
                 <button class="float-right p-1 hover:bg-slate-200 rounded" type="button">
@@ -17,7 +17,7 @@
     <div class="p-3 border-t">
         <h1 class="w-full text-center text-2xl">
             <b>
-                <a class="underline hover:text-gray-500 {{ $product->valid ? '' : 'text-red-500' }}" href="{{ $product->product_url }}" target="_blank">{{ $product->product_name }} </a>
+                <a class="underline hover:text-gray-500 {{ $product->valid ? '' : 'text-red-500' }} break-words" href="{{ $product->product_url }}" target="_blank">{{ $product->product_name }} </a>
             </b>
             @if (!$product->valid)
                 <button type="button">
