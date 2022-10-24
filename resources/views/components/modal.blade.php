@@ -30,8 +30,12 @@
             document.body.classList.remove("stop-scroll");
         }
         const hideModal = () => {
-            document.getElementById("modal").remove();
+            document.getElementById("modal").style.display = "none";
             enableScroll();
+        }
+        const showModal = () => {
+            document.getElementById("modal").style.display = "block";
+            disableScroll();
         }
         // disableScroll();
         document.body.appendChild(document.getElementById("modal"));

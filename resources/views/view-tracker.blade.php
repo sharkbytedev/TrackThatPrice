@@ -20,7 +20,7 @@
                 <a class="underline hover:text-gray-500 {{ $product->valid ? '' : 'text-red-500' }} break-words" href="{{ $product->product_url }}" target="_blank">{{ $product->product_name }} </a>
             </b>
             @if (!$product->valid)
-                <button type="button">
+                <button type="button" onclick="showModal()">
                     <img src="/images/alert-triangle.svg" alt="Alert: Product is invalid" class="m-auto inline mx-2">
                 </button>
             @endif
