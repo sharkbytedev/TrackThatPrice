@@ -12,7 +12,7 @@
         </div>
     </x-slot>
     @if (!$product->valid)
-        {{-- <x-modal></x-modal> --}}
+        <x-modal></x-modal>
     @endif
     <div class="p-3 border-t">
         <h1 class="w-full text-center text-2xl">
