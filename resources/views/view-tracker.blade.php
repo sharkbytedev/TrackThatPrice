@@ -1,15 +1,29 @@
 <x-app-layout>
     <x-slot name="header">
-        {{ $product->product_name }}
+        <div class="w-full h-full flex flex-row">
+            <div class="w-1/2 h-full">
+                {{ $product->product_name }}
+            </div>
+            <div class="w-1/2 h-full justify-items-end">
+                <button class="float-right p-1 hover:bg-slate-200 rounded" type="button">
+                    <img src="/images/trash-2.svg" width="20" height="20"  alt="Delete tracker">
+                </button>
+            </div>
+        </div>
     </x-slot>
-    <div class="p-3 border-t bg-white">
+    @if (!$product->valid)
+        {{-- <x-modal></x-modal> --}}
+    @endif
+    <div class="p-3 border-t">
         <h1 class="w-full text-center text-2xl">
             <b>
                 <a class="underline hover:text-gray-500 {{ $product->valid ? '' : 'text-red-500' }}" href="{{ $product->product_url }}" target="_blank">{{ $product->product_name }} </a>
             </b>
-            <button type="button">
-                <img src="/images/alert-triangle.svg" alt="Alert: Product is invalid" class="m-auto inline mx-2">
-            </button>
+            @if (!$product->valid)
+                <button type="button">
+                    <img src="/images/alert-triangle.svg" alt="Alert: Product is invalid" class="m-auto inline mx-2">
+                </button>
+            @endif
         </h1>
         @if (isset($product->price))
             <h3 class="w-full text-center text-xl">Most recent price: {{$product->price/100.0}}</h3>
