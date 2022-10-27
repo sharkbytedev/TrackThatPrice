@@ -23,7 +23,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::match(['get', 'post'], '/trackers/{product_id}', function (Request $request, string $product_id) {
+Route::get('/trackers/{product_id}', function (string $product_id) {
     /** @var App\Models\User */
     $user = Auth::user();
     $product = $user->products()->find($product_id);
