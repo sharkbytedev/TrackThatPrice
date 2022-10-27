@@ -21,7 +21,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::match(['get', 'post'], '/create-new-tracker', function () {
+Route::match(['get', 'post'], '/trackers/new', function () {
     $product = new App\Models\Product();
     if(isset($_POST["Submitted"])){
         $product->store = $_POST["store"];
@@ -55,8 +55,8 @@ Route::match(['get', 'post'], '/create-new-tracker', function () {
         $productCreated = false;
     }
 
-    return view('create-new-tracker', ["productCreated" => $productCreated], ["product" => $product]);
-})->middleware(['auth'])->name('create-new-tracker');
+    return view('trackers/new', ["productCreated" => $productCreated], ["product" => $product]);
+})->middleware(['auth'])->name('trackers/new');
 
 Route::get('/trackers', function () {
     $products = auth()->user()->products()->get();
