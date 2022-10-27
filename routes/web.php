@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +28,6 @@ Route::get('/trackers/{product_id}', function (string $product_id) {
     $product = $user->products()->find($product_id);
 
     return isset($product) ? view('view-tracker', ['product' => $product]) : redirect('/dashboard');
-})->middleware(['auth']);
+})->middleware(['auth'])->name('trackers.view');
 
 require __DIR__.'/auth.php';
