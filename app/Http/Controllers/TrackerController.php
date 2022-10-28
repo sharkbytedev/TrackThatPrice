@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TrackerController extends Controller
 {
@@ -27,6 +27,7 @@ class TrackerController extends Controller
 
             return redirect('/dashboard');
         }
+
         return view('delete-tracker', ['product' => $product]);
     }
 }
