@@ -24,18 +24,6 @@ Route::get('/dashboard', function () {
 
 Route::get('/trackers/{product_id}', [TrackerController::class, 'view'])->middleware(['auth'])->name('trackers.view');
 
-Route::match(['get', 'post'], '/trackers/{product_id}/remove', function (Request $request, string $product_id) {
-    /** @var App\Models\User */
-    $user = Auth::user();
-    $product = $user->products()->find($product_id);
-
-    if ($request->isMethod('post')) {
-        $user->products()->detach($product->product_id);
-
-        return redirect('/dashboard');
-    }
-
-    return isset($product) ? view('delete-tracker', ['product' => $product]) : redirect('/dashboard');
-})->middleware(['auth'])->name('trackers.remove');
+Route::match(['get', 'post'], '/trackers/{product_id}/remove', [TrackerController::class, 'remove'])->middleware(['auth'])->name('trackers.remove');
 
 require __DIR__.'/auth.php';
