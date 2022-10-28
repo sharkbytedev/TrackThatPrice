@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TrackerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,8 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('/trackers/{product_id}', [TrackerController::class, 'view'])->middleware(['auth'])->name('trackers.view');
 
 Route::match(['get', 'post'], '/trackers/new', function () {
     $product = new App\Models\Product();
