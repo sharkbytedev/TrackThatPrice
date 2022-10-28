@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\TrackerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,13 +22,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/trackers/{product_id}', function (string $product_id) {
-    /** @var App\Models\User */
-    $user = Auth::user();
-    $product = $user->products()->find($product_id);
-
-    return isset($product) ? view('view-tracker', ['product' => $product]) : redirect('/dashboard');
-})->middleware(['auth'])->name('trackers.view');
+Route::get('/trackers/{product_id}', [TrackerController::class, 'view'])->middleware(['auth'])->name('trackers.view');
 
 Route::match(['get', 'post'], '/trackers/{product_id}/remove', function (Request $request, string $product_id) {
     /** @var App\Models\User */

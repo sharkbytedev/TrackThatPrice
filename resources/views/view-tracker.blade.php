@@ -13,18 +13,17 @@
             </div>
         </div>
     </x-slot>
-    @if (!$product->valid)
-        <x-modal></x-modal>
-    @endif
     <div class="p-3 border-t">
         <h1 class="w-full text-center text-2xl">
             <b>
                 <a class="underline hover:text-gray-500 {{ $product->valid ? '' : 'text-red-500' }} break-words" href="{{ $product->product_url }}" target="_blank">{{ $product->product_name }} </a>
             </b>
             @if (!$product->valid)
-                <button type="button" onclick="showModal()">
-                    <img src="/images/alert-triangle.svg" alt="Alert: Product is invalid" class="m-auto inline mx-2">
-                </button>
+                <a href="#invalidNotice">
+                    <button type="button">
+                        <img src="/images/alert-triangle.svg" alt="Alert: Product is invalid" class="m-auto inline mx-2">
+                    </button>
+                </a>
             @endif
         </h1>
         @if (isset($product->price))
@@ -43,4 +42,17 @@
             <h1 class="text-xl">Coming soon</h1>
         </div>
     </div>
+    @if (!$product->valid)
+        <div class="mx-2 sm:w-1/2 sm:mx-auto mt-3 shadow rounded-md p-3 bg-slate-200" id="invalidNotice">
+            <h3 class="w-full text-center text-xl"><b>Invalid product</b></h3>
+            <p>
+                This product is no longer valid, meaning we could not get the required from the store.
+                Please make sure the product still exists at the link you provided. If it does not, delete this tracker and make a new one with the updated link
+            </p>
+            <p>
+                If this is a problem on our end, we will be fix it as soon as possible. 
+                You can still view the last known product information and historical data, however it will likely become out of date.
+            </p>
+        </div>
+    @endif
 </x-app-layout>

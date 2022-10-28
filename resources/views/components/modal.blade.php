@@ -39,5 +39,6 @@
         }
         // disableScroll();
         document.body.appendChild(document.getElementById("modal"));
+        hideModal();
     </script>
 </div>
