@@ -11,4 +11,6 @@ class ProductDetails
     public string $image_url;
 
     public string $store_id;
+
+    public string $upc;
 }
