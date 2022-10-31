@@ -9,6 +9,8 @@ use App\Exceptions\QueryExceptions\QueryException;
 use App\Exceptions\QueryExceptions\ServerError;
 use App\Models\Product;
 use Goutte\Client;
+use Illuminate\Support\Facades\Log;
+use InvalidArgumentException;
 
 class EbayHandler implements ProductHandler
 {
@@ -53,6 +55,17 @@ class EbayHandler implements ProductHandler
         $details->name = $website->filter('h1[class="x-item-title__mainTitle"] > span')->eq(0)->text();
         $price_text = str_replace(',', '', explode('$', $website->filter('#prcIsum')->eq(0)->text()));
         $details->price = floatval(end($price_text)) * 100;
+
+        $details->store_id = explode('/', parse_url($product->product_url, PHP_URL_PATH))[2];
+
+        try {
+            $upc = $website->filter('span[itemprop="gtin13"] > div > span')->eq(0)->text();
+            $details->upc = $upc;
+        }
+        catch (InvalidArgumentException $e) {
+            Log::notice('UPC not found for product', ["product_id"=>$product->id, "error"=>$e]);
+            $details->upc = '';
+        }
 
         // On ebay, the image element is created by a short bit of js that contains the image source
         $img_script_text = $website->filter('#mainImgHldr > script')->eq(0)->text();
