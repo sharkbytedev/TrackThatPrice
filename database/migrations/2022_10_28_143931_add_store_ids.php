@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->string('store_id');
-            $table->string('upc', 12)->nullable()->unique();
+            $table->string('upc', 12)->nullable();
         });
     }
 
