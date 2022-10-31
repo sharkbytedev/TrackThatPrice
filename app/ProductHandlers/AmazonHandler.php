@@ -61,6 +61,12 @@ class AmazonHandler implements ProductHandler
         // Store price in cents, so multiply price by 100
         $details->price = floatval($price_whole.$price_fraction) * 100;
 
+        // Get the ASIN from the URL. ASIN always follows '/dp/' in the URL
+        $asin = explode('/', explode('/dp/', parse_url($url, PHP_URL_PATH))[1])[0];
+        $details->store_id = $asin;
+
+        
+
         try {
             // Get an image url. Often on Amazon there's more than one, so we'll just get the first one.
             $details->image_url = $website->filter('#imgTagWrapperId')->filter('img')->eq(0)->attr('src');
