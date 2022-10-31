@@ -9,7 +9,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->string('store_id');
+            $table->string('store_id')->nullable();
             $table->string('upc', 12)->nullable();
         });
     }
