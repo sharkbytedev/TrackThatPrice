@@ -61,9 +61,8 @@ class EbayHandler implements ProductHandler
         try {
             $upc = $website->filter('span[itemprop="gtin13"] > div > span')->eq(0)->text();
             $details->upc = $upc;
-        }
-        catch (InvalidArgumentException $e) {
-            Log::notice('UPC not found for product', ["product_id"=>$product->id, "error"=>$e]);
+        } catch (InvalidArgumentException $e) {
+            Log::notice('UPC not found for product', ['product_id' => $product->id, 'error' => $e]);
             $details->upc = '';
         }
 
