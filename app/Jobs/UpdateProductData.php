@@ -3,8 +3,8 @@
 namespace App\Jobs;
 
 use App\Exceptions\QueryExceptions;
-use App\Models\Product;
 use App\Models\HistoricalData;
+use App\Models\Product;
 use App\ProductHandlers\ProductHandlerFactory;
 use Exception;
 use Illuminate\Bus\Queueable;
@@ -74,7 +74,7 @@ class UpdateProductData implements ShouldQueue
             return;
         }
 
-        $hd = new HistoricalData(['price'=>$old_price, 'product_id'=>$this->product->id]);
+        $hd = new HistoricalData(['price' => $old_price, 'product_id' => $this->product->id]);
         $hd->save();
     }
 }
