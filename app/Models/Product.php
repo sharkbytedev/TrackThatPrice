@@ -22,6 +22,11 @@ class Product extends Model
         'update_interval' => 24,
     ];
 
+    public function history()
+    {
+        return $this->hasMany(HistoricalData::class);
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class, 'product_user')->withTimestamps()->withPivot('enabled', 'type', 'threshold');
