@@ -12,6 +12,7 @@ return new class extends Migration
             $table->integer('threshold')->nullable();
             $table->string('type', 10)->nullable();
             $table->boolean('enabled');
+            $table->timestamp('compare_time');
         });
     }
 
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->dropColumn('threshold');
             $table->dropColumn('type');
             $table->dropColumn('enabled');
+            $table->dropColumn('compare_time');
         });
     }
 };
