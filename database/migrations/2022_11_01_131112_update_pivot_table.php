@@ -12,13 +12,14 @@ return new class extends Migration
             $table->integer('threshold')->nullable();
             $table->string('type', 10)->nullable();
             $table->boolean('enabled');
-            $table->timestamp('compare_time');
+            $table->timestamp('compare_time')->nullable();
         });
     }
 
     public function down()
     {
         Schema::table('product_user', function(Blueprint $table) {
+
             $table->dropColumn('threshold');
             $table->dropColumn('type');
             $table->dropColumn('enabled');
