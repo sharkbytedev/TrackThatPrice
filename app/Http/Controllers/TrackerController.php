@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use \App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TrackerController extends Controller
 {
@@ -17,7 +16,8 @@ class TrackerController extends Controller
         return view('view-tracker', ['product' => $product]);
     }
 
-    public function new(Request $request){
+    public function new(Request $request)
+    {
         $product = new \App\Models\Product();
         $product->store = $request->post('store');
         $product->product_url = $request->post('productURL');
@@ -41,6 +41,7 @@ class TrackerController extends Controller
         $product->save();
         $lastid = $product->id;
         Auth::user()->products()->attach($lastid);
+
         return view('trackers.new');
     }
 }

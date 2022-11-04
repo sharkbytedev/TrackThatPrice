@@ -29,6 +29,7 @@ Route::get('/trackers/{product_id}', [TrackerController::class, 'view'])->middle
 
 Route::get('/trackers', function () {
     $products = auth()->user()->products()->get();
+
     return view('trackers', ['products' => $products]);
 })->middleware(['auth'])->name('trackers');
 
