@@ -2,14 +2,12 @@
 
 namespace App\Jobs;
 
+use App\Models\Product;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Product;
-use Illuminate\Support\Facades\Log;
 
 class CheckProductPrices implements ShouldQueue
 {
@@ -35,8 +33,7 @@ class CheckProductPrices implements ShouldQueue
                 ->first();
             if (isset($h)) {
                 $last_price = $h->price;
-            }
-            else {
+            } else {
                 // No data for before the compare time
                 continue;
             }
@@ -45,8 +42,7 @@ class CheckProductPrices implements ShouldQueue
                 if ($last_price - $this->product->price >= $user->pivot->threshold) {
                     NotifyUser::dispatch($user, 'flat', $last_price - $this->product->price, $last_price, $this->product);
                 }
-            }
-            else if ($user->pivot->type === 'percent') {
+            } elseif ($user->pivot->type === 'percent') {
                 $dropped_percent = (($last_price - $this->product->price) / $last_price) * 100.0;
                 if ($dropped_percent >= $user->pivot->threshold) {
                     NotifyUser::dispatch($user, 'percent', $dropped_percent, $last_price, $this->product);

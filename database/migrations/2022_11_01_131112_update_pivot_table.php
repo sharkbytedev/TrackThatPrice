@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::table('product_user', function(Blueprint $table) {
+        Schema::table('product_user', function (Blueprint $table) {
             $table->integer('threshold')->nullable();
             $table->string('type', 10)->nullable();
             $table->boolean('enabled');
@@ -18,8 +18,7 @@ return new class extends Migration
 
     public function down()
     {
-        Schema::table('product_user', function(Blueprint $table) {
-
+        Schema::table('product_user', function (Blueprint $table) {
             $table->dropColumn('threshold');
             $table->dropColumn('type');
             $table->dropColumn('enabled');
