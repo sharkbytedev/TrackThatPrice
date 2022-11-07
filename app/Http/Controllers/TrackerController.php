@@ -20,6 +20,13 @@ class TrackerController extends Controller
     {
         $product = new \App\Models\Product();
         $product->store = $request->post('store');
+
+        if($product->store == "amazon"){
+            $cutOffPoint = strpos($request->post('productURL'), "/dp/");
+            $productCode = substr($request->post('productURL'), $cutOffPoint, 10);
+            $shortenedURL = (substr($request->post('productURL'), 0, $cutOffPoint)."/".$productCode);
+            //$product->product_url = $shortenedURL;
+        }
         $product->product_url = $request->post('productURL');
 
         $handler = \App\ProductHandlers\ProductHandlerFactory::new($product);
