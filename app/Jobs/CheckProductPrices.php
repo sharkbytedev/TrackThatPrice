@@ -25,7 +25,6 @@ class CheckProductPrices implements ShouldQueue
         $users = $this->product->users()->wherePivot('enabled', 1)->get();
         foreach ($users as $user) {
             // Get the price closest to the compare time
-            /** @var int */
             $h = $this->product->history()
                 ->where('created_at', '<=', $user->pivot->compare_time)
                 ->orderBy('created_at', 'desc')
