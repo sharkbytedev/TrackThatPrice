@@ -22,7 +22,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::post('/trackers/new', [TrackerController::class, 'new'], function () {
+Route::match(['get', 'post'], '/trackers/new', [TrackerController::class, 'new'], function () {
 })->middleware(['auth'])->name('trackers.new');
 
 Route::get('/trackers/{product_id}', [TrackerController::class, 'view'])->middleware(['auth'])->name('trackers.view');
