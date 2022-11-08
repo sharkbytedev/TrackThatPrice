@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class TrackerController extends Controller
 {
@@ -22,6 +20,7 @@ class TrackerController extends Controller
         /** @var App\Models\User */
         $user = Auth::user();
         $product = $user->products()->findOrFail($product_id);
+
         return view('delete-tracker', ['product' => $product]);
     }
 
@@ -31,6 +30,7 @@ class TrackerController extends Controller
         $user = Auth::user();
         $product = $user->products()->findOrFail($product_id);
         $user->products()->detach($product->product_id);
+
         return redirect('/dashboard');
     }
 }
