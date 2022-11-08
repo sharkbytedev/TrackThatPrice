@@ -12,8 +12,9 @@
         </p>
         <br>
         <x-primary-button onclick="window.history.back()">Nevermind</x-primary-button>
-        <form class="inline" method="post">
+        <form class="inline" method="POST">
             @csrf
+            @method('DELETE')
             <x-primary-button>Yes, stop tracking</x-primary-button>
         </form>
     </div>

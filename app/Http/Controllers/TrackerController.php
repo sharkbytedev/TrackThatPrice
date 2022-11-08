@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class TrackerController extends Controller
 {
@@ -21,8 +22,8 @@ class TrackerController extends Controller
         /** @var App\Models\User */
         $user = Auth::user();
         $product = $user->products()->findOrFail($product_id);
-
-        if ($request->isMethod('post')) {
+        Log::alert($request->method());
+        if ($request->isMethod('delete')) {
             $user->products()->detach($product->product_id);
 
             return redirect('/dashboard');
