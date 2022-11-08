@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::table('product_user', function (Blueprint $table) {
             $table->integer('threshold')->nullable();
             $table->string('type', 10)->nullable();
-            $table->boolean('enabled');
+            $table->boolean('enabled')->nullable();
             $table->timestamp('compare_time')->nullable();
         });
     }
