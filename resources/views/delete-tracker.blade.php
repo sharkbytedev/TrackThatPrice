@@ -12,7 +12,7 @@
         </p>
         <br>
         <x-primary-button onclick="window.history.back()">Nevermind</x-primary-button>
-        <form class="inline" method="POST">
+        <form class="inline" method="POST" action="{{ route('trackers.delete', ['product_id'=>$product->id]) }}">
             @csrf
             @method('DELETE')
             <x-primary-button>Yes, stop tracking</x-primary-button>
