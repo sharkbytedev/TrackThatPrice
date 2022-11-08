@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Exceptions\QueryExceptions;
+use App\Models\HistoricalData;
 use App\Models\Product;
 use App\ProductHandlers\ProductHandlerFactory;
 use Exception;
@@ -28,6 +29,7 @@ class UpdateProductData implements ShouldQueue
     public function handle()
     {
         Log::withContext(['product_id' => $this->product->id]);
+        $old_price = $this->product->price;
         try {
             $details = ProductHandlerFactory::new($this->product)->crawl($this->product);
             $this->product->product_name = $details->name;
@@ -73,5 +75,8 @@ class UpdateProductData implements ShouldQueue
 
             return;
         }
+
+        $hd = new HistoricalData(['price' => $old_price, 'product_id' => $this->product->id]);
+        $hd->save();
     }
 }
