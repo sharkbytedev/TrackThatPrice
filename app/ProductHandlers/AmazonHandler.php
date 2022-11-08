@@ -56,7 +56,7 @@ class AmazonHandler implements ProductHandler
         // Gets the text of the first div with the id #productTitle
         $details->name = $website->filter('#productTitle')->eq(0)->text();
         // On amazon, the price is divided into 3 parts: Symbol, whole, and fraction
-        $price_whole = $website->filter('.a-price-whole')->eq(0)->text();
+        $price_whole = str_replace(',', '', $website->filter('.a-price-whole')->eq(0)->text());
         $price_fraction = $website->filter('.a-price-fraction')->eq(0)->text();
         // Store price in cents, so multiply price by 100
         $details->price = floatval($price_whole.$price_fraction) * 100;
