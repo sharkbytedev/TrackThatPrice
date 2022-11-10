@@ -12,11 +12,14 @@ use Goutte\Client;
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 
-class AmazonHandler implements ProductHandler
+class EbayHandler implements ProductHandler
 {
-    const base_url = [
-        'https://www.amazon.ca/',
-        'https://www.amazon.com/',
+    public const store_name = 'ebay';
+
+    protected $url_base = [
+        'https://www.ebay.ca/',
+        'https://www.ebay.com/',
+
     ];
 
     protected static function handleStatusCode(int $code)
@@ -41,38 +44,38 @@ class AmazonHandler implements ProductHandler
         }
     }
 
-    protected string $product_url;
-
     public static function crawl(Product $product): ProductDetails
     {
-        $url = $product->product_url;
         $client = new Client();
         $client->setServerParameter('HTTP_USER_AGENT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36');
-        $website = $client->request('GET', $url);
-        AmazonHandler::handleStatusCode($client->getResponse()->getStatusCode());
+        $website = $client->request('GET', $product->product_url);
+        EbayHandler::handleStatusCode($client->getResponse()->getStatusCode());
 
         $details = new ProductDetails();
+        $details->name = $website->filter('h1[class="x-item-title__mainTitle"] > span')->eq(0)->text();
+        $price_text = str_replace(',', '', explode('$', $website->filter('#prcIsum')->eq(0)->text()));
+        $details->price = floatval(end($price_text)) * 100;
 
-        // Gets the text of the first div with the id #productTitle
-        $details->name = $website->filter('#productTitle')->eq(0)->text();
-        // On amazon, the price is divided into 3 parts: Symbol, whole, and fraction
-        $price_whole = str_replace(',', '', $website->filter('.a-price-whole')->eq(0)->text());
-        $price_fraction = $website->filter('.a-price-fraction')->eq(0)->text();
-        // Store price in cents, so multiply price by 100
-        $details->price = floatval($price_whole.$price_fraction) * 100;
-
-        // Get the ASIN from the URL. ASIN always follows '/dp/' in the URL
-        $asin = explode('/', explode('/dp/', parse_url($url, PHP_URL_PATH))[1])[0];
-        $details->store_id = $asin;
+        $details->store_id = explode('/', parse_url($product->product_url, PHP_URL_PATH))[2];
 
         try {
-            // Get an image url. Often on Amazon there's more than one, so we'll just get the first one.
-            $details->image_url = $website->filter('#imgTagWrapperId')->filter('img')->eq(0)->attr('src');
+            $upc = $website->filter('span[itemprop="gtin13"] > div > span')->eq(0)->text();
+            $details->upc = $upc;
         } catch (InvalidArgumentException $e) {
-            $details->image_url = null;
-            Log::notice('Image for product not found', ['product_id' => $product->id]);
+            Log::notice('UPC not found for product', ['product_id' => $product->id, 'error' => $e]);
+            $details->upc = '';
         }
 
+        // On ebay, the image element is created by a short bit of js that contains the image source
+        $img_script_text = $website->filter('#mainImgHldr > script')->eq(0)->text();
+
+        // Regex to match the image URL from the text of the script
+        $url_pattern = '#\bhttps?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#';
+        $matches = [];
+        preg_match($url_pattern, $img_script_text, $matches);
+        $details->image_url = $matches[0];
+
+        // No errors were caught, so return true
         return $details;
     }
 }
