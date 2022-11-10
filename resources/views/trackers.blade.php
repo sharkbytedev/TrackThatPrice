@@ -35,7 +35,7 @@
         </div>
     @endforeach
 @else
-    <p> No products found </p>
+    <p> No products found! </p>
 @endif
 
 </body>
