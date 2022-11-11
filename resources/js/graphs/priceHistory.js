@@ -80,7 +80,8 @@ const config = {
                         yMin: 0,
                         yMax: 0,
                         borderColor: 'rgb(255, 0, 0)',
-                        borderWidth: 2
+                        borderWidth: 2,
+                        display: raw_target_data ? true : false
                     }
                 ]
             }
