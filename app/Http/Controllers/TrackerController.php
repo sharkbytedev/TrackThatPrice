@@ -12,6 +12,14 @@ class TrackerController extends Controller
         $user = Auth::user();
         $product = $user->products()->findOrFail($product_id);
 
-        return view('view-tracker', ['product' => $product]);
+        $history = $product->history()->orderBy('created_at', 'desc')->get();
+        $prices = [];
+        $labels = [];
+        foreach ($history as $datum) {
+            array_push($prices, $datum->price);
+            array_push($labels, $datum->created_at);
+        }
+
+        return view('view-tracker', ['product' => $product, 'prices'=>$prices, 'labels'=>$labels]);
     }
 }
