@@ -1,5 +1,6 @@
 import { Chart, registerables } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
+
 Chart.register(...registerables);
 Chart.register(annotationPlugin);
 
@@ -69,13 +70,54 @@ const config = {
         }],
         backgroundColor: 'rgb(255, 99, 132)',
     },
-    options: {}
+    options: {
+        responsive: true,
+        plugins: {
+            annotation: {
+                annotations: [
+                    {
+                        type: 'line',
+                        yMin: 0,
+                        yMax: 0,
+                        borderColor: 'rgb(255, 0, 0)',
+                        borderWidth: 2
+                    }
+                ]
+            }
+        }
+    }
 };
 
 const chart = new Chart(
     document.getElementById('priceHistory'),
     config
 );
+
+if (raw_target_data) {
+    let timestamps = [];
+    let target_date = Date.parse(raw_target_data.compare_time);
+    raw_timestamps.forEach(t => timestamps.push(Date.parse(t)));
+    let closestIndex = 0;
+    for (let t in timestamps) {
+        if (t === 0) continue;
+        if (Math.abs(target_date - timestamps[t]) < Math.abs(target_date - timestamps[closestIndex])) {
+            closestIndex = t;
+        }
+    }
+    let compare_price = raw_prices[closestIndex];
+    let line_height = null;
+    switch (raw_target_data.type) {
+        case 'flat':
+            line_height = compare_price - raw_target_data.threshold;
+            break;
+        case 'percent':
+            line_height = compare_price - ((compare_price * raw_target_data.threshold) / 100)
+    }
+    chart.options.plugins.annotation.annotations[0].yMin = line_height;
+    chart.options.plugins.annotation.annotations[0].yMax = line_height;
+    console.log(raw_target_data.type)
+    chart.update();
+}
 
 updateChart("daily", 7);
 
