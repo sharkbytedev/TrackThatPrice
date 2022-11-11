@@ -1,5 +1,7 @@
 import { Chart, registerables } from 'chart.js';
+import annotationPlugin from 'chartjs-plugin-annotation';
 Chart.register(...registerables);
+Chart.register(annotationPlugin);
 
 
 const getIntervalData = (interval_str) => {
@@ -49,9 +51,9 @@ const processTimestamps = (r_timestamps, timeFormat='time') => {
     return timestamps;
 }
 
-const updateChart = (timeInterval, backLimit=0) => {
+const updateChart = (timeInterval, backLimit=0, timeFormat="date") => {
     let data = getIntervalData(timeInterval);
-    chart.data.labels = processTimestamps(data.timestamps.slice(0, backLimit), 'date');
+    chart.data.labels = processTimestamps(data.timestamps.slice(0, backLimit), timeFormat);
     chart.data.datasets[0].data = data.prices.slice(0, backLimit);
     chart.update();
 }
