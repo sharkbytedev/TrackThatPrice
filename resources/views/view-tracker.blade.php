@@ -40,9 +40,9 @@
             <canvas id="priceHistory" class="m-auto text-center w-full bg-slate-200">
             </canvas>
             <div>
-                <button id="YTDButton" class="bg-slate-300 mx-1 p-2 rounded-lg hover:bg-slate-400">Year</button>
-                <button id="monthButton" class="bg-slate-300 mx-1 p-2 rounded-lg hover:bg-slate-400">Month</button>
-                <button id="weekButton" class="bg-slate-300 mx-1 p-2 rounded-lg hover:bg-slate-400">Week</button>
+                <button id="YTDButton" title="Show data from the past 12 months" class="bg-slate-300 mx-1 p-2 rounded-lg hover:bg-slate-400">Year</button>
+                <button id="monthButton" title="Show data from the past 30 days" class="bg-slate-300 mx-1 p-2 rounded-lg hover:bg-slate-400">Month</button>
+                <button id="weekButton" title="Show data from the past 7 days" class="bg-slate-300 mx-1 p-2 rounded-lg hover:bg-slate-400">Week</button>
             </div>
         </div>
     </div>
