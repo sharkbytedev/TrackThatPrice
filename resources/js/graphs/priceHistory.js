@@ -4,7 +4,6 @@ import annotationPlugin from 'chartjs-plugin-annotation';
 Chart.register(...registerables);
 Chart.register(annotationPlugin);
 
-
 const getIntervalData = (interval_str) => {
     let interval;
     switch (interval_str) {
@@ -46,6 +45,9 @@ const processTimestamps = (r_timestamps, timeFormat='time') => {
                 break;
             case 'date':
                 timestamps.push(`${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`);
+                break;
+            case 'day':
+                timestamps.push(d.toLocaleString('en-us', {weekday: 'short', month: 'short', 'day': 'numeric'}));
                 break;
         }
     });
@@ -135,5 +137,5 @@ document.getElementById("monthButton").onclick = () => {
 }
 
 document.getElementById("weekButton").onclick = () => {
-    updateChart("daily", 7)
+    updateChart("daily", 7, 'day')
 }
