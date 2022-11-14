@@ -75,8 +75,9 @@ class UpdateProductData implements ShouldQueue
 
             return;
         }
-
-        $hd = new HistoricalData(['price' => $old_price, 'product_id' => $this->product->id]);
-        $hd->save();
+        if (isset($old_price)) {
+            $hd = new HistoricalData(['price' => $old_price, 'product_id' => $this->product->id]);
+            $hd->save();
+        }
     }
 }
