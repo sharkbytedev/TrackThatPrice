@@ -66,7 +66,11 @@ const config = {
         labels: [],
         datasets: [{
             label: 'Price',
-            data: []
+            data: [],
+            pointBackgroundColor: '#2877f7',
+            pointBorderColor: '#4389fa',
+            borderColor: '#2877f7',
+            backgroundColor: '#2877f7'
         }],
         backgroundColor: 'rgb(255, 99, 132)',
     },
@@ -79,7 +83,7 @@ const config = {
                         type: 'line',
                         yMin: 0,
                         yMax: 0,
-                        borderColor: 'rgb(255, 0, 0)',
+                        borderColor: 'rgb(0, 255, 0)',
                         borderWidth: 2,
                         display: raw_target_data ? true : false
                     }
