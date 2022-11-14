@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Jobs\UpdateProductData;
 
 class TrackerController extends Controller
 {
@@ -25,6 +26,8 @@ class TrackerController extends Controller
         if($request->isMethod('post')){
             $product = new \App\Models\Product();
             $product->store = $request->post('store');
+            
+            $handler = \App\ProductHandlers\ProductHandlerFactory::new($product);
 
             if($product->store == "amazon"){
                 $cutOffPoint = strpos($request->post('productURL'), "/dp/");
@@ -35,25 +38,12 @@ class TrackerController extends Controller
             else{
                 $product->product_url = $request->post('productURL');
             }
-
-            if ($product_details->name != null) {
-                $product->product_name = $product_details->name;
-            } else {
-                $product->product_name = 'Product';
-            }
-
-            if ($product_details->image_url != null) {
-                $product->image_url = $product_details->image_url;
-            } else {
-                $product->image_url = 'https://cdn.discordapp.com/attachments/620091571521454082/1027339673225396285/unknown.png'; //this is a placeholder
-            }
-
-            $product->price = $product_details->price;
+            $product->upc = null;
 
             $product->save();
             $lastid = $product->id;
             Auth::user()->products()->attach($lastid);
-            UpdateProductJob::dispatch($product);
+            UpdateProductData::dispatch($product);
             return view('trackers.new');
         }
     }

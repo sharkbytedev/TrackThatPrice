@@ -31,5 +31,10 @@
             </form>
         </div>
     </div>
+    @if(isset($warning))
+        <p>
+            {{"Product could not be created.  Reason: " . $warning}}
+        </p>
+    @endif
     <script src="{{ asset('js/new-tracker-page.js') }}"></script>
 </x-app-layout>
