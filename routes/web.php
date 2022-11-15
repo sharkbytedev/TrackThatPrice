@@ -24,4 +24,6 @@ Route::get('/dashboard', function () {
 
 Route::get('/trackers/{product_id}', [TrackerController::class, 'view'])->middleware(['auth'])->name('trackers.view');
 
+Route::get('/trackers/{product_id}/update', [TrackerController::class, 'update'])->middleware(['auth'])->name('trackers.update');
+
 require __DIR__.'/auth.php';
