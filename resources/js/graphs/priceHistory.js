@@ -125,8 +125,9 @@ if (raw_target_data) {
     console.log(raw_target_data.type)
     chart.update();
 }
-
-updateChart("daily", 7);
+if (raw_timestamps.length > 0) {
+    updateChart("daily", 7);
+}
 
 document.getElementById("YTDButton").onclick = () => {
     updateChart("monthly", 12)

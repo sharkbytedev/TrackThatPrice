@@ -35,7 +35,12 @@
             <img class="m-auto" src="{{ $product->image_url }}" alt="{{ $product->product_name }}">
         @endif
         <br>
-        <div class="m-auto p-2 w-1/2 bg-slate-200">
+        <div class="m-auto p-2 w-1/2 bg-slate-200 relative">
+            @if (count($prices) <= 0)
+                <div class="text-center w-full h-full absolute left-0 z-10 top-0 backdrop-blur-sm table">
+                    <span class="text-2xl table-cell align-middle">There is currently no price history</span>
+                </div>
+            @endif
             <h3 class="w-full text-center text-xl"><b>Historical data</b></h3>
             <canvas id="priceHistory" class="m-auto text-center w-full bg-slate-200">
             </canvas>
