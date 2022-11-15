@@ -8,6 +8,9 @@
                 <button class="float-right p-1 hover:bg-slate-200 rounded" type="button">
                     <img src="/images/trash-2.svg" width="20" height="20"  alt="Delete tracker">
                 </button>
+                <button class="float-right p-1 hover:bg-slate-200 rounded">
+                    <img src="/images/settings.svg" width="20" height="20" alt="Update tracker">
+                </button>
             </div>
         </div>
     </x-slot>
