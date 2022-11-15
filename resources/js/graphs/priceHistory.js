@@ -44,7 +44,7 @@ const processTimestamps = (r_timestamps, timeFormat='time') => {
                 timestamps.push(`${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`);
                 break;
             case 'date':
-                timestamps.push(`${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`);
+                timestamps.push(d.toLocaleString('en-us', {month: 'short', day: 'numeric', year: 'numeric'}));
                 break;
             case 'day':
                 timestamps.push(d.toLocaleString('en-us', {weekday: 'short', month: 'short', 'day': 'numeric'}));
