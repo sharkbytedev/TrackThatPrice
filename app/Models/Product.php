@@ -29,6 +29,6 @@ class Product extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'product_user')->withTimestamps()->withPivot('tracker_name', 'type', 'threshold', 'enabled', 'compare_time');
+        return $this->belongsToMany(User::class, 'product_user')->withTimestamps()->withPivot('tracker_name', 'product_id', 'type', 'threshold', 'enabled', 'compare_time');
     }
 }
