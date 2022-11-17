@@ -37,7 +37,7 @@
                 <span class="mr-2 inline">Notify me when the price drops by:</span>
                 <br>
                 <div class="flex">
-                    <input required class="rounded-l-md h-8 p-0 inline border-r-0 text-center" style="width:3.5rem;" min="1" name="Compare value" type="number" id="value" value="{{ $tracker->threshold }}">
+                    <input required class="rounded-l-md h-8 p-0 inline border-r-0 text-center" style="width:3.5rem;" min="1" max="2147483647" name="Compare value" type="number" id="value" value="{{ $tracker->threshold }}">
                     <select class="rounded-r-md h-8 inline text-sm border-l-0" name="Compare type" id="type">
                         <option @selected($tracker->type == 'percent') value="percent">%</option>
                         <option @selected($tracker->type == 'flat') value="flat">$</option>

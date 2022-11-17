@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,13 +34,13 @@ class TrackerController extends Controller
         $validated = $request->validate([
             'Tracker_name' => ['max:100', 'required'],
             'Compare_type' => ['regex:/^(flat|percent)$/', 'required'],
-            'Compare_date' => ['date', 'required'],
-            'Compare_value' => ['integer', 'required'],
+            'Compare_date' => ['date', 'required', 'after:1970-01-01 00:00:01.000000', 'before:2038-01-19 03:14:07.999999'],
+            'Compare_value' => ['integer', 'required', 'between:1,2147483647'],
         ]);
 
         $product->pivot->tracker_name = $request->input('Tracker_name');
         $product->pivot->type = $request->input('Compare_type');
-        $product->pivot->compare_time = $request->input('Compare_date');
+        $product->pivot->compare_time = DateTime::createFromFormat('Y-m-d', $request->input('Compare_date'))->format('Y-m-d H:i:s');
         $product->pivot->threshold = $request->input('Compare_value');
         $product->pivot->enabled = $request->input('Enabled') ? 1 : 0;
         $product->pivot->save();
