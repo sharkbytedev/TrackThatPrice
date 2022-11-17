@@ -21,7 +21,7 @@
             </style>
             <label for="trackerName">Tracker name:</label>
             <br>
-            <input class="rounded-md h-8" required type="text" name="Tracker name" id="trackerName" value="{{ $tracker->tracker_name }}">
+            <input class="rounded-md h-8" required type="text" maxlength="100" name="Tracker name" id="trackerName" value="{{ $tracker->tracker_name }}">
             <br>
             <sub>Name to give the tracker. This is different from the product name.</sub>
             <br>
