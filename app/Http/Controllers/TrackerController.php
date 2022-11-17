@@ -31,7 +31,6 @@ class TrackerController extends Controller
         /** @var App\Models\User */
         $user = Auth::user();
         $product = $user->products()->findOrFail($product_id);
-        dump($request->all());
         $validated = $request->validate([
             'Tracker_name' => ['max:100', 'required'],
             'Compare_type' => ['regex:/^(flat|percent)$/', 'required'],
