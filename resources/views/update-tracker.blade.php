@@ -21,14 +21,14 @@
             </style>
             <label for="trackerName">Tracker name:</label>
             <br>
-            <input class="rounded-md h-8" type="text" name="Tracker name" id="trackerName" value="{{ $tracker->tracker_name }}">
+            <input class="rounded-md h-8" required type="text" name="Tracker name" id="trackerName" value="{{ $tracker->tracker_name }}">
             <br>
             <sub>Name to give the tracker. This is different from the product name.</sub>
             <br>
             <br>
             <label for="compareDate">Compare date:</label>
             <br>
-            <input class="rounded-md h-8" type="date" name="Compare date" id="compareDate" value="{{ explode(' ', $tracker->compare_time)[0] }}">
+            <input class="rounded-md h-8" required type="date" name="Compare date" id="compareDate" value="{{ explode(' ', $tracker->compare_time)[0] }}">
             <br>
             <sub>The date to use while watching for price drops.</sub>
             <br>
@@ -37,7 +37,7 @@
                 <span class="mr-2 inline">Notify me when the price drops by:</span>
                 <br>
                 <div class="flex">
-                    <input class="rounded-l-md h-8 p-0 inline border-r-0 text-center" style="width:3.5rem;" min="1" name="Compare value" type="number" id="value" value="{{ $tracker->threshold }}">
+                    <input required class="rounded-l-md h-8 p-0 inline border-r-0 text-center" style="width:3.5rem;" min="1" name="Compare value" type="number" id="value" value="{{ $tracker->threshold }}">
                     <select class="rounded-r-md h-8 inline text-sm border-l-0" name="Compare type" id="type">
                         <option @selected($tracker->type == 'percent') value="percent">%</option>
                         <option @selected($tracker->type == 'flat') value="flat">$</option>
@@ -45,11 +45,15 @@
                 </div>
             </div>
             <br>
+            <label for="enabled">Receive notifications?</label>
+            <input type="checkbox" name="Enabled" id="enabled" {{ $tracker->enabled ? 'checked' : '' }} class="rounded-md m-1">
+            <br>
+            <br>
             <div>
                 <x-primary-button class="inline">Save</x-primary-button>
                 <x-primary-button class="inline" onclick="window.history.back()">Cancel</x-primary-button>
             </div>
-
+            
         </form>
         @if ($errors->any())
             <ul>
