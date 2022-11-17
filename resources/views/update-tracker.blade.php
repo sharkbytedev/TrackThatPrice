@@ -4,7 +4,7 @@
     </x-slot>
     <div class="h-full bg-white rounded-md p-2 mt-3 mx-auto w-full sm:w-1/2 shadow">
         <h1 class="w-full text-center">Update tracker settings</h1>
-        <form action="POST">
+        <form method="POST" action="{{ route('trackers.edit', ['product_id'=>$tracker->product_id]) }}">
             @csrf
             @method('PATCH')
             <style>
@@ -28,7 +28,7 @@
             <br>
             <label for="compareDate">Compare date:</label>
             <br>
-            <input class="rounded-md h-8" type="date" name="Compare date" id="compareDtae" value="{{ explode(' ', $tracker->compare_time)[0] }}">
+            <input class="rounded-md h-8" type="date" name="Compare date" id="compareDate" value="{{ explode(' ', $tracker->compare_time)[0] }}">
             <br>
             <sub>The date to use while watching for price drops.</sub>
             <br>
@@ -37,7 +37,7 @@
                 <span class="mr-2 inline">Notify me when the price drops by:</span>
                 <br>
                 <div class="flex">
-                    <input class="rounded-l-md h-8 p-0 inline border-r-0 text-center" style="width:3.5rem;" min="1" max="10" type="number" value="{{ $tracker->threshold }}">
+                    <input class="rounded-l-md h-8 p-0 inline border-r-0 text-center" style="width:3.5rem;" min="1" max="10" type="number" id="value" value="{{ $tracker->threshold }}">
                     <select class="rounded-r-md h-8 inline text-sm border-l-0" name="Compare type" id="type">
                         <option @selected($tracker->type == 'percent') value="percent">%</option>
                         <option @selected($tracker->type == 'flat') value="flat">$</option>
