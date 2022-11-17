@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class TrackerController extends Controller
 {
@@ -23,7 +22,7 @@ class TrackerController extends Controller
         $user = Auth::user();
         $product = $user->products()->findOrFail($product_id);
 
-        return view('update-tracker', ['tracker'=>$product->pivot]);
+        return view('update-tracker', ['tracker' => $product->pivot]);
     }
 
     public function edit(Request $request, string $product_id)
@@ -37,14 +36,14 @@ class TrackerController extends Controller
             'Compare_date' => ['date', 'required'],
             'Compare_value' => ['integer', 'required'],
         ]);
-        
+
         $product->pivot->tracker_name = $request->input('Tracker_name');
         $product->pivot->type = $request->input('Compare_type');
         $product->pivot->compare_time = $request->input('Compare_date');
         $product->pivot->threshold = $request->input('Compare_value');
         $product->pivot->enabled = $request->input('Enabled') ? 1 : 0;
         $product->pivot->save();
-        
-        return redirect(route('trackers.view', ['product_id'=>$product_id]));
+
+        return redirect(route('trackers.view', ['product_id' => $product_id]));
     }
 }
