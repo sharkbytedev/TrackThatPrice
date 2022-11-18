@@ -19,13 +19,7 @@ class NotifyUser implements ShouldQueue
 
     public User $user;
 
-    public string $change_type;
-
-    public int $change_value;
-
-    public int $old_price;
-
-    public Product $product;
+    public Mailable $mail;
 
     public function __construct(User $user, Mailable $mail)
     {
