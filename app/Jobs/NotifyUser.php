@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Mail\Mailable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
@@ -26,17 +27,14 @@ class NotifyUser implements ShouldQueue
 
     public Product $product;
 
-    public function __construct(User $user, string $change_type, int $change_value, int $old_price, Product $product)
+    public function __construct(User $user, Mailable $mail)
     {
         $this->user = $user;
-        $this->change_type = $change_type;
-        $this->change_value = $change_value;
-        $this->product = $product;
-        $this->old_price = $old_price;
+        $this->mail = $mail;
     }
 
     public function handle()
     {
-        Mail::to($this->user)->send(new PriceChanged($this->change_type, $this->change_value, $this->old_price, $this->product));
+        Mail::to($this->user)->send($this->mail);
     }
 }

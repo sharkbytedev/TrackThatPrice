@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\Product;
+use App\Mail\PriceChanged;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -39,12 +40,12 @@ class CheckProductPrices implements ShouldQueue
 
             if ($user->pivot->type === 'flat') {
                 if ($last_price - $this->product->price >= $user->pivot->threshold) {
-                    NotifyUser::dispatch($user, 'flat', $last_price - $this->product->price, $last_price, $this->product);
+                    NotifyUser::dispatch($user, new PriceChanged('flat', $last_price - $this->product->price, $last_price, $this->product));
                 }
             } elseif ($user->pivot->type === 'percent') {
                 $dropped_percent = (($last_price - $this->product->price) / $last_price) * 100.0;
                 if ($dropped_percent >= $user->pivot->threshold) {
-                    NotifyUser::dispatch($user, 'percent', $dropped_percent, $last_price, $this->product);
+                    NotifyUser::dispatch($user, new PriceChanged('percent', $dropped_percent, $last_price, $this->product));
                 }
             }
         }
