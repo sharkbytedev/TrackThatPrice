@@ -5,9 +5,11 @@
                 <p>{{ $product->product_name }}</p>
             </div>
             <div class="w-1/2 h-full justify-items-end">
-                <button class="float-right p-1 hover:bg-slate-200 rounded" type="button">
-                    <img src="/images/trash-2.svg" width="20" height="20"  alt="Delete tracker">
-                </button>
+                <a href="{{ route('trackers.remove', ['product_id'=>$product->id]) }}">
+                    <button class="float-right p-1 hover:bg-slate-200 rounded" type="button">
+                        <img src="/images/trash-2.svg" width="20" height="20" alt="Delete tracker">
+                    </button>
+                </a>
             </div>
         </div>
     </x-slot>
