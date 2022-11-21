@@ -29,6 +29,6 @@ class PriceChanged extends Mailable
 
     public function build()
     {
-        return $this->view('mail.price-change');
+        return $this->view('mail.price-change')->subject('There has been a price drop on a product you\'re tracking');
     }
 }

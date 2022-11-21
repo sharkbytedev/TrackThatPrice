@@ -29,6 +29,6 @@ class ProductError extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.product-error', ['error'=>$this->error, 'product'=>$this->product]);
+        return $this->view('mail.product-error', ['error'=>$this->error, 'product'=>$this->product])->subject('There was an issue with a product you\'re tracking');
     }
 }
