@@ -25,13 +25,13 @@ class TrackerController extends Controller
 
         return view('update-tracker', ['tracker' => $product->pivot]);
     }
-    
+
     public function remove(string $product_id)
     {
         /** @var App\Models\User */
         $user = Auth::user();
         $product = $user->products()->findOrFail($product_id);
-        
+
         return view('delete-tracker', ['product' => $product]);
     }
 
@@ -44,6 +44,7 @@ class TrackerController extends Controller
 
         return redirect('/dashboard');
     }
+
     public function edit(Request $request, string $product_id)
     {
         $validated = $request->validate([
