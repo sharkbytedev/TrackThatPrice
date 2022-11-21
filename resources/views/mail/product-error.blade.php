@@ -2,7 +2,7 @@
 <p>There was an error while fetching the price data for <a href="{{ $product->product_url }}">{{ $product->product_name }}</a></p>
 @switch($error)
     @case('not_found')
-        <p>The product URL you provided no longer exists. This means the product is no longer on sale, or has moved to a different URL.</p>
+        <p>The product URL you provided no longer exists. This either means the product is no longer on sale, or has moved to a different URL.</p>
         <p>Make a new tracker with an updated URL to continue monitoring the price of this product.</p>
         @break
     @case('argument_exception')
