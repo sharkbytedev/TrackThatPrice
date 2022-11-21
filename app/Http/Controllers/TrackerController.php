@@ -25,12 +25,27 @@ class TrackerController extends Controller
 
         return view('update-tracker', ['tracker' => $product->pivot]);
     }
-
-    public function edit(Request $request, string $product_id)
+    
+    public function remove(string $product_id)
     {
         /** @var App\Models\User */
         $user = Auth::user();
         $product = $user->products()->findOrFail($product_id);
+        
+        return view('delete-tracker', ['product' => $product]);
+    }
+
+    public function delete(string $product_id)
+    {
+        /** @var App\Models\User */
+        $user = Auth::user();
+        $product = $user->products()->findOrFail($product_id);
+        $user->products()->detach($product->product_id);
+
+        return redirect('/dashboard');
+    }
+    public function edit(Request $request, string $product_id)
+    {
         $validated = $request->validate([
             'Tracker_name' => ['max:100', 'required'],
             'Compare_type' => ['regex:/^(flat|percent)$/', 'required'],
