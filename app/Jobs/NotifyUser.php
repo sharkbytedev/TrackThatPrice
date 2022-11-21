@@ -2,8 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Mail\PriceChanged;
-use App\Models\Product;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

@@ -58,23 +58,22 @@ class UpdateProductData implements ShouldQueue
             $this->product->save();
             Log::alert('Recieved a 400 while updating a product');
             $error = 'bad_request';
-        }
-        catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->product->valid = false;
             $this->product->save();
             Log::error('Error while parsing data from product', ['exception' => $e]);
             $error = 'argument_exception';
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Log::error('Unhandled error while updating product data', ['exception' => $e]);
             $error = 'unhandled';
         }
 
         if (isset($error)) {
             foreach ($this->product->users()->get() as $user) {
-                Log::alert('Sending error notification', ['user'=>$user]);
+                Log::alert('Sending error notification', ['user' => $user]);
                 NotifyUser::dispatch($user, new ProductError($this->product, $error));
             }
+
             return;
         }
 
