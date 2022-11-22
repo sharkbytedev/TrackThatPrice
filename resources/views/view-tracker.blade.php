@@ -10,6 +10,13 @@
                         <img src="/images/trash-2.svg" width="20" height="20" alt="Delete tracker">
                     </button>
                 </a>
+                @if ($show_listings)
+                    <a href="">
+                        <button title="View other listings" class="float-right p-1 hover:bg-slate-200 rounded" type="button">
+                            <img src="/images/shopping-cart.svg" width="20" height="20" alt="View other listings">
+                        </button>
+                    </a>
+                @endif
             </div>
         </div>
     </x-slot>
