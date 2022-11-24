@@ -2,9 +2,15 @@
     <x-slot name="header">Other listings</x-slot>
     <div>
         @foreach (array_keys($products) as $key)
-            <div class="bg-white rounded-md shadow-md w-full md:w-2/3 mx-auto mt-3 p-2">
+            <div class="bg-white rounded-md shadow-md w-full md:w-2/3 mx-auto mt-3 p-2 relative">
                 <p class="text-xl mx-auto text-center"><b>{{ ucfirst($key) }}</b></p>
-                <div id="{{ $key }}-products sm:w-4/5">
+                <button onclick="toggleTab('{{ $key }}')" id="{{ $key }}-open" class="absolute right-1 top-2 hover:bg-slate-300 rounded-md">
+                    <img src="/images/chevron-up.svg" alt="" srcset="">
+                </button>
+                <button onclick="toggleTab('{{ $key }}')" id="{{ $key }}-close" class="hidden absolute right-1 top-2 hover:bg-slate-300 rounded-md">
+                    <img src="/images/chevron-down.svg" alt="" srcset="">
+                </button>
+                <div id="{{ $key }}-products" class="">
                     <hr class="my-2">
                     @foreach ($products[$key] as $product)
                         <div class="w-full lg:w-4/5 bg-slate-100 p-2 rounded-md mx-auto my-2">
@@ -28,9 +34,21 @@
     </div>
     <script>
         const toggleTab = (store) => {
+            console.log(`${store}-products`);
             let d = document.getElementById(`${store}-products`)
-            if (d.style.display === 'none') d.style.display = 'block';
-            else d.style.display = 'none';
+            console.log(d)
+            let open = document.getElementById(`${store}-open`)
+            let close = document.getElementById(`${store}-close`)
+            if (d.style.display === 'none') {
+                d.style.display = 'block';
+                close.style.display = 'none';
+                open.style.display = 'block';
+            }
+            else {
+                d.style.display = 'none';
+                open.style.display = 'none';
+                close.style.display = 'block';
+            }
         }
     </script>
 </x-app-layout>
