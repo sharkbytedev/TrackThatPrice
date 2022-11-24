@@ -24,7 +24,24 @@ class TrackerController extends Controller
         }
 
         if($request->isMethod('post')){
+            $warnings = [];
+            if(substr($request->post('productURL'), 0, 18) != "https://www.amazon"){
+                if($request->post('store') == 'amazon'){
+                    array_push($warnings, "Store provided does not match URL!");
+                }
+            }
+            if(substr($request->post('productURL'), 0, 16) != "https://www.ebay"){
+                if($request->post('store') == 'ebay'){
+                    array_push($warnings, "Store provided does not match URL!");
+                }
+            }
+
+            if(count($warnings) > 0){
+                return view('trackers.new', ['warnings' => (array)$warnings]);
+            }
+
             $product = new \App\Models\Product();
+
             $product->store = $request->post('store');
             
             $handler = \App\ProductHandlers\ProductHandlerFactory::new($product);
@@ -41,10 +58,12 @@ class TrackerController extends Controller
             $product->upc = null;
 
             $product->save();
-            $lastid = $product->id;
-            Auth::user()->products()->attach($lastid);
+
+            $lastID = $product->id;
+            Auth::user()->products()->attach($lastID);
+            Auth::user()->products()->updateExistingPivot($lastID, ['tracker_name' => $request->post('trackerName')]);
             UpdateProductData::dispatch($product);
-            return view('trackers.new');
+            return redirect(route('trackers.view', ['product_id'=>$product->id]));
         }
     }
 }

@@ -8,7 +8,7 @@
                 @csrf
                 <div class="flex-column">
                     <label for="trackerName">Tracker name:</label><br>
-                    <input id="trackerName" class="rounded-lg h-7 mb-5" type="text" required><br>
+                    <input id="trackerName" name="trackerName" class="rounded-lg h-7 mb-5" type="text" required><br>
                     <label for="productURL">Product URL:</label><br>
                     <input
                         type="url"
@@ -25,15 +25,19 @@
                             <option value="amazon">Amazon</option>
                             <option value="ebay">Ebay</option>
                         </select>
-                        <button class="bg-white ml-5 h-9 border border-black disabled:border-gray-500 p-1 disabled:text-gray-500" id="submit" type="submit" disabled>Create tracker</button>
+                        <button class="bg-white ml-5 h-9 border border-black disabled:border-gray-500 p-1 disabled:text-gray-500" id="submit" name="submit" type="submit" disabled>Create tracker</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-    @if(isset($warning))
-        <p>
-            {{"Product could not be created.  Reason: " . $warning}}
+
+    @if(isset($warnings))
+        <p class="flex justify-center text-center">
+            @foreach($warnings as $warning)
+                {{"Product could not be created.  Reason: " . $warning}}
+                <br>
+            @endforeach
         </p>
     @endif
     <script src="{{ asset('js/new-tracker-page.js') }}"></script>
