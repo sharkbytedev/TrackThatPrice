@@ -44,4 +44,26 @@ class TrackerController extends Controller
 
         return redirect('/dashboard');
     }
+
+    public function others(string $product_id)
+    {
+        /** @var App\Models\User */
+        $user = Auth::user();
+        $product = $user->products()->findOrFail($product_id);
+
+        $equivalents = Product::where('upc', $product->upc)
+            ->whereNot('id', $product->id)
+            ->get();
+        abort_if($equivalents->count() <= 0, 404);
+
+        $products = [];
+        foreach ($equivalents as $product) {
+            if (!array_key_exists($product->store, $products)) {
+                $products[$product->store] = [];
+            }
+            $products[$product->store][] = $product;
+        }
+
+        return view('product-equivalents', ['products'=>$products]);
+    }
 }

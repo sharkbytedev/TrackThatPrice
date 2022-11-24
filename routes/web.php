@@ -28,4 +28,6 @@ Route::get('/trackers/{product_id}/remove', [TrackerController::class, 'remove']
 
 Route::delete('/trackers/{product_id}/delete', [TrackerController::class, 'delete'])->middleware(['auth'])->name('trackers.delete');
 
+Route::get('/trackers/{product_id}/listings', [TrackerController::class, 'others'])->middleware(['auth'])->name('trackers.others');
+
 require __DIR__.'/auth.php';
