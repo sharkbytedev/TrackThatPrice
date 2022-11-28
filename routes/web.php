@@ -30,4 +30,6 @@ Route::delete('/trackers/{product_id}/delete', [TrackerController::class, 'delet
 
 Route::get('/trackers/{product_id}/listings', [TrackerController::class, 'others'])->middleware(['auth'])->name('trackers.others');
 
+Route::post('/tracker/track/{product_id}', [TrackerController::class, 'quickTrack'])->middleware(['auth'])->name('trackers.quickTrack');
+
 require __DIR__.'/auth.php';

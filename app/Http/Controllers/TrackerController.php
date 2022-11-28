@@ -66,4 +66,14 @@ class TrackerController extends Controller
 
         return view('product-equivalents', ['products'=>$products]);
     }
+
+    public function quickTrack(string $product_id)
+    {
+        /** @var App\Models\User */
+        $user = Auth::user();
+        $product = Product::findOrFail($product_id);
+        $user->products()->attach($product_id);
+
+        return 200;
+    }
 }

@@ -1,5 +1,10 @@
 <x-app-layout>
     <x-slot name="header">Other listings</x-slot>
+    <script>
+        const csrf = '{{ csrf_token() }}';
+        const base_url = '{{ route("trackers.quickTrack", ["product_id"=>"id"]) }}'.slice(0, -2);
+    </script>
+    @vite(['resources/js/quick_track.js'])
     <div>
         @foreach (array_keys($products) as $key)
             <div class="bg-white rounded-md shadow-md w-full md:w-2/3 mx-auto mt-3 p-2 relative">
@@ -21,7 +26,7 @@
                                 <div class="w-1/4 justify-items-end flex">
                                     <div class="flex items-center ml-auto">
                                         <p class=" inline">{{ $product->price/100 }}</p>
-                                        <button class="bg-white border-slate-500 hover:bg-slate-200 border-2 ml-2 px-1 float-right w-20">Tracking</button>
+                                        <button onclick="trackProduct('{{ $product->id }}')" class="bg-white border-slate-500 hover:bg-slate-200 border-2 ml-2 px-1 float-right w-20">Tracking</button>
                                     </div>
                                 </div>
                             </div>
@@ -30,7 +35,6 @@
                 </div>
             </div>
         @endforeach
-
     </div>
     <script>
         const toggleTab = (store) => {
