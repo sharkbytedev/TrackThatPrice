@@ -20,7 +20,7 @@ class TrackerController extends Controller
     public function new(Request $request)
     {
         if($request->isMethod('get')){
-            return view('trackers.new');
+            return view('dashboard.new');
         }
 
         if($request->isMethod('post')){
@@ -37,7 +37,7 @@ class TrackerController extends Controller
             }
 
             if(count($warnings) > 0){
-                return view('trackers.new', ['warnings' => (array)$warnings]);
+                return view('dashboard.new', ['warnings' => (array)$warnings]);
             }
 
             $product = new \App\Models\Product();
@@ -63,7 +63,7 @@ class TrackerController extends Controller
             Auth::user()->products()->attach($lastID);
             Auth::user()->products()->updateExistingPivot($lastID, ['tracker_name' => $request->post('trackerName')]);
             UpdateProductData::dispatch($product);
-            return redirect(route('trackers.view', ['product_id'=>$product->id]));
+            return redirect(route('dashboard.view', ['product_id'=>$product->id]));
         }
     }
 }
