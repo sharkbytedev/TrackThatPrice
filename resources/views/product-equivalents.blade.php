@@ -25,8 +25,13 @@
                                 </div>
                                 <div class="w-1/4 justify-items-end flex">
                                     <div class="flex items-center ml-auto">
-                                        <p class=" inline">{{ $product->price/100 }}</p>
-                                        <button onclick="trackProduct('{{ $product->id }}')" class="bg-white border-slate-500 hover:bg-slate-200 border-2 ml-2 px-1 float-right w-20">Tracking</button>
+                                        <p class="inline">{{ $product->price/100 }}</p>
+                                        <button
+                                            id="{{ $product->id }}"
+                                            onclick="trackProduct('{{ $product->id }}')"
+                                            {{ $tracked->contains($product) ? 'disabled' : '' }}
+                                            class="{{$tracked->contains($product)? 'bg-green-300 border-green-500' : 'enabled:hover:bg-slate-200 bg-white border-slate-500'}} border-2 ml-2 px-1 float-right w-20"
+                                        >{{ $tracked->contains($product) ? 'Tracking' : 'Track' }}</button>
                                     </div>
                                 </div>
                             </div>

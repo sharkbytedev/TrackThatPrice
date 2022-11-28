@@ -49,7 +49,9 @@ class TrackerController extends Controller
     {
         /** @var App\Models\User */
         $user = Auth::user();
-        $product = $user->products()->findOrFail($product_id);
+        $tracked_products = $user->products();
+        $tracked = $tracked_products->get();
+        $product = $tracked_products->findOrFail($product_id);
 
         $equivalents = Product::where('upc', $product->upc)
             ->whereNot('id', $product->id)
@@ -64,7 +66,7 @@ class TrackerController extends Controller
             $products[$product->store][] = $product;
         }
 
-        return view('product-equivalents', ['products'=>$products]);
+        return view('product-equivalents', ['products'=>$products, 'tracked'=>$tracked]);
     }
 
     public function quickTrack(string $product_id)
