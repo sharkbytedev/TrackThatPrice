@@ -2,6 +2,11 @@
 <!DOCTYPE html>
 <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">Your Trackers</h2>
+    <a href="{{ route("dashboard.new") }}" class="flex-none">
+        <x-primary-button class="flex-none  dark:border-slate-200 mr-1">
+            <b>Create a Tracker</b>
+        </x-primary-button>
+    </a>
 </x-slot>
 <body>
 
