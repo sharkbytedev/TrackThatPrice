@@ -11,7 +11,7 @@
                     </button>
                 </a>
                 @if ($show_listings)
-                    <a href="">
+                    <a href="{{ route('trackers.others', ['product_id'=>$product->id]) }}">
                         <button title="View other listings" class="float-right p-1 hover:bg-slate-200 rounded" type="button">
                             <img src="/images/shopping-cart.svg" width="20" height="20" alt="View other listings">
                         </button>
