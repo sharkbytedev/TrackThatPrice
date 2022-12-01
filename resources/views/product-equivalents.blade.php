@@ -20,10 +20,10 @@
                     @foreach ($products[$key] as $product)
                         <div class="w-full lg:w-4/5 bg-slate-100 p-2 rounded-md mx-auto my-2">
                             <div class="flex items-center">
-                                <div class="w-3/4 items-center flex">
+                                <div class="w-2/3 md:w-3/4 items-center flex">
                                     <p class="underline hover:text-gray-500 overflow-hidden truncate"><a target="_blank" href="{{ $product->product_url }}">{{ $product->product_name }}</a></p>
                                 </div>
-                                <div class="w-1/4 justify-items-end flex">
+                                <div class="w-1/3 md:w-1/4 justify-items-end flex">
                                     <div class="flex items-center ml-auto">
                                         <p class="inline">{{ $product->price/100 }}</p>
                                         <button
