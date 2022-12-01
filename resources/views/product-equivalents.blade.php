@@ -3,6 +3,7 @@
     <script>
         const csrf = '{{ csrf_token() }}';
         const base_url = '{{ route("trackers.quickTrack", ["product_id"=>"id"]) }}'.slice(0, -2);
+        const tracker_base_url = '{{ route("trackers.view", ["product_id"=>"id"]) }}'.slice(0, -2);
     </script>
     @vite(['resources/js/quick_track.js'])
     <div>
@@ -21,7 +22,7 @@
                         <div class="w-full lg:w-4/5 bg-slate-100 p-2 rounded-md mx-auto my-2">
                             <div class="flex items-center">
                                 <div class="w-2/3 md:w-3/4 items-center flex">
-                                    <p class="underline hover:text-gray-500 overflow-hidden truncate"><a target="_blank" href="{{ $product->product_url }}">{{ $product->product_name }}</a></p>
+                                    <p class="underline hover:text-gray-500 overflow-hidden truncate"><a id="{{$product->id}}-link" target="_blank" href="{{ $tracked->contains($product) ? route('trackers.view', ['product_id'=>$product->id]) : $product->product_url }}">{{ $product->product_name }}</a></p>
                                 </div>
                                 <div class="w-1/3 md:w-1/4 justify-items-end flex">
                                     <div class="flex items-center ml-auto">

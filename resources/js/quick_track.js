@@ -1,5 +1,6 @@
 import axios from 'axios';
-console.log('goooo')
+
+
 window.trackProduct = (product_id) => {
     let data = new FormData();
     let button = document.getElementById(product_id)
@@ -16,6 +17,7 @@ window.trackProduct = (product_id) => {
         if (response.status === 200) {
             button.innerText = 'Tracking';
             button.classList = button.classList + ' bg-green-300 border-green-500';
+            document.getElementById(`${product_id}-link`).href = `${tracker_base_url}${product_id}`
         }
     })
 }
