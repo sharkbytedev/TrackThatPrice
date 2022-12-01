@@ -23,7 +23,7 @@ class TrackerController extends Controller
             }
         }
 
-        return view('view-tracker', ['product' => $product, 'show_listings'=>$show_listings]);
+        return view('view-tracker', ['product' => $product, 'show_listings' => $show_listings]);
     }
 
     public function remove(string $product_id)
@@ -60,13 +60,13 @@ class TrackerController extends Controller
 
         $products = [];
         foreach ($equivalents as $product) {
-            if (!array_key_exists($product->store, $products)) {
+            if (! array_key_exists($product->store, $products)) {
                 $products[$product->store] = [];
             }
             $products[$product->store][] = $product;
         }
 
-        return view('product-equivalents', ['products'=>$products, 'tracked'=>$tracked]);
+        return view('product-equivalents', ['products' => $products, 'tracked' => $tracked]);
     }
 
     public function quickTrack(string $product_id)
