@@ -29,7 +29,7 @@ class TrackerController extends Controller
         /** @var App\Models\User */
         $user = Auth::user();
         $product = $user->products()->findOrFail($product_id);
-        $user->products()->detach($product->product_id);
+        $user->products()->detach($product->id);
 
         return redirect('/dashboard');
     }
