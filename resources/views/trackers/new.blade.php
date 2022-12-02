@@ -1,6 +1,11 @@
 <x-app-layout class="bg-white">
     <x-slot name="header">
         <h1 class="text-xl">Track a product</h1>
+        <a href="{{ route("dashboard") }}" class="flex-none">
+            <x-primary-button class="flex-none  dark:border-slate-200 mr-1">
+                <b>All Trackers</b>
+            </x-primary-button>
+        </a>
     </x-slot>
     <div class="w-full">
         <div class=" h-10/12 w-fit m-auto shadow rounded-xl mt-5 p-5 bg-slate-50">
