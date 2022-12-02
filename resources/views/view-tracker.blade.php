@@ -25,7 +25,14 @@
             @endif
         </h1>
         @if (isset($product->price))
-            <h3 class="w-full text-center text-xl">Most recent price: {{$product->price/100.0}}</h3>
+            <h3 class="w-full text-center text-xl">
+                Most recent price: {{$product->price/100.0}}
+                @if ($product->price > $compare_price)
+                    <img class="inline" draggable="false" src="/images/arrow-up.svg" alt="">
+                @elseif ($product->price < $compare_price)
+                    <img class="inline" draggable="false" src="/images/arrow-down.svg" alt="">
+                @endif
+            </h3>
             <p class="w-full text-center text-sm text-gray-500">Last updated: {{$product->updated_at}}</p>
         @else
             <h3>No price data currently. Check back later</h3>

@@ -17,9 +17,10 @@ class TrackerController extends Controller
             ->orderBy('created_at', 'desc')
             ->get()
             ->first();
-        
         $target_price = null;
+        $compare_price = null;
         if (isset($h)) {
+            $compare_price = $h->price;
             if ($product->pivot->type == 'flat') {
                 $target_price = $h->price - $product->pivot->threshold;
             }
@@ -28,6 +29,6 @@ class TrackerController extends Controller
             }
         }
 
-        return view('view-tracker', ['product' => $product, 'target_price'=>$target_price]);
+        return view('view-tracker', ['product' => $product, 'target_price'=>$target_price, 'compare_price'=>$compare_price]);
     }
 }
