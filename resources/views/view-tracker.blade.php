@@ -35,6 +35,13 @@
             <img class="m-auto" src="{{ $product->image_url }}" alt="{{ $product->product_name }}">
         @endif
         <br>
+        <div class="w-full text-center">
+            @if ($product->pivot->enabled)
+                <p>You will be notified if this product drops below {{ round($target_price/100, 2) }}</p>
+            @else
+            @endif
+        </div>
+        <br>
         <h3 class="w-full text-center text-xl"><b>Historical data</b></h3>
         <div class="m-auto p-9 text-center w-1/3 bg-slate-200">
             <h1 class="text-xl">Coming soon</h1>
