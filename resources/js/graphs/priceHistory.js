@@ -4,6 +4,8 @@ import annotationPlugin from 'chartjs-plugin-annotation';
 Chart.register(...registerables);
 Chart.register(annotationPlugin);
 
+const locale = document.documentElement.lang;
+
 const getIntervalData = (interval_str) => {
     let interval;
     switch (interval_str) {
@@ -44,10 +46,10 @@ const processTimestamps = (r_timestamps, timeFormat='time') => {
                 timestamps.push(`${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`);
                 break;
             case 'date':
-                timestamps.push(d.toLocaleString('en-us', {month: 'short', day: 'numeric', year: 'numeric'}));
+                timestamps.push(d.toLocaleString(locale, {month: 'short', day: 'numeric', year: 'numeric'}));
                 break;
             case 'day':
-                timestamps.push(d.toLocaleString('en-us', {weekday: 'short', month: 'short', 'day': 'numeric'}));
+                timestamps.push(d.toLocaleString(locale, {weekday: 'short', month: 'short', 'day': 'numeric'}));
                 break;
         }
     });
