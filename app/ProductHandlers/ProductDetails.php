@@ -13,4 +13,6 @@ class ProductDetails
     public string $store_id;
 
     public string $upc;
+
+    public string $currency;
 }

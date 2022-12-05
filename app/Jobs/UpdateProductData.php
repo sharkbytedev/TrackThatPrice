@@ -37,6 +37,7 @@ class UpdateProductData implements ShouldQueue
             $this->product->image_url = $details->image_url;
             $this->product->store_id = $details->store_id;
             $this->product->upc = $details->upc;
+            $this->product->currency = $details->currency;
             $this->product->save();
         }
         // TODO: Some way to notify users after a product they are tracking errors
