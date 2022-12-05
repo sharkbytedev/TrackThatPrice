@@ -27,7 +27,21 @@
             @endif
         </h1>
         @if (isset($product->price))
-            <h3 class="w-full text-center text-xl">Most recent price: {{$product->price/100.0}}</h3>
+            <h3 class="w-full text-center text-xl">Most recent price: {!!isset($product->currency) ? '<span id="price-formatted"></span>' : $product->price/100.0!!}</h3>
+            <script>
+                try {
+                    document.getElementById('price-formatted').innerText = new Intl.NumberFormat(
+                        "en-US", 
+                        { style: "currency", currency: '{{$product->currency}}' }
+                    ).format({{$product->price/100.0}})
+                }
+                catch (e) {
+                    if (e instanceof RangeError) {
+                        document.getElementById('price-formatted').innerText = '{{ $product->currency }} {{ $product->price/100.0 }}';
+                    }
+                    else throw e;
+                }
+            </script>
             <p class="w-full text-center text-sm text-gray-500">Last updated: {{$product->updated_at}}</p>
         @else
             <h3>No price data currently. Check back later</h3>

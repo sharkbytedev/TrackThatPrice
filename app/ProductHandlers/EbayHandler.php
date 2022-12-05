@@ -56,7 +56,19 @@ class EbayHandler implements ProductHandler
         // $price_text = str_replace(',', '', explode('$', $website->filter('#prcIsum')->eq(0)->text()));
         $price_text = $website->filter('span[itemprop="price"]')->eq(0)->attr('content');
         $details->price = floatval($price_text) * 100;
-        $details->currency = explode(' ', $website->filter('span[itemprop="price"] > span[class="ux-textspans"]')->eq(0)->text())[0];
+        $currency = explode(' ', $website->filter('span[itemprop="price"] > span[class="ux-textspans"]')->eq(0)->text())[0];
+        switch ($currency) {
+            case 'US':
+                $details->currency = 'USD';
+                break;
+            case 'C':
+                $details->currency = 'CAD';
+                break;
+            default:
+                $details->currency = $currency;
+                break;
+        }
+        
         $details->store_id = explode('/', parse_url($product->product_url, PHP_URL_PATH))[2];
 
         try {
