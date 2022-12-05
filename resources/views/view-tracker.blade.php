@@ -31,7 +31,7 @@
             <script>
                 try {
                     document.getElementById('price-formatted').innerText = new Intl.NumberFormat(
-                        "en-US", 
+                        document.documentElement.lang, 
                         { style: "currency", currency: '{{$product->currency}}' }
                     ).format({{$product->price/100.0}})
                 }
