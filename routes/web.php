@@ -31,6 +31,9 @@ Route::get('/trackers/archived', function () {
 Route::match(['get', 'post'], '/trackers/new', [TrackerController::class, 'new'], function () {
 })->middleware(['auth'])->name('trackers.new');
 
+Route::get('/trackers/archive/{product_id}', [TrackerController::class, 'archive'])->middleware(['auth'])->name('trackers.archive');
+Route::get('/trackers/unarchive/{product_id}', [TrackerController::class, 'unarchive'])->middleware(['auth'])->name('trackers.unarchive');
+
 Route::get('/trackers/{product_id}', [TrackerController::class, 'view'])->middleware(['auth'])->name('trackers.view');
 
 require __DIR__.'/auth.php';

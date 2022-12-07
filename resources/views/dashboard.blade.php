@@ -60,6 +60,11 @@
                             <b>Product Info</b>
                         </x-primary-button>
                     </a>
+                    <a href="{{ route('trackers.archive', ['product_id'=>$product->id])}}" class="flex-none">
+                        <x-primary-button class="flex-none  dark:border-slate-200 mr-1">
+                            <b>Archive</b>
+                        </x-primary-button>
+                    </a>
                 </div>
             </div>
         @endif

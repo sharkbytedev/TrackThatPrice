@@ -66,4 +66,22 @@ class TrackerController extends Controller
             return redirect(route('trackers.view', ['product_id'=>$product->id]));
         }
     }
+
+    public function archive(string $id)
+    {
+        $products = Auth::user()->products()->get();
+        $product = $products->find($id);
+        $product->pivot->archived = true;
+        $product->pivot->save();
+        return view('dashboard', ['products' => $products]);
+    }
+
+    public function unarchive(string $id)
+    {
+        $products = Auth::user()->products()->get();
+        $product = $products->find($id);
+        $product->pivot->archived = false;
+        $product->pivot->save();
+        return view('trackers/archived', ['products' => $products]);
+    }
 }
