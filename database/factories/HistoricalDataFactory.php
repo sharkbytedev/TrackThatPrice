@@ -18,7 +18,7 @@ class HistoricalDataFactory extends Factory
     {
         return [
             'price' => rand(1000, 100000),
-            'created_at' => date('Y-m-d H:i:s', rand(1500000000, time()))
+            'created_at' => date('Y-m-d H:i:s', rand(1500000000, time())),
         ];
     }
 }
