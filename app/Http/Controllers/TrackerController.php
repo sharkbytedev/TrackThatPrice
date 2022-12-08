@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< feature/product-linking
 use App\Models\Product;
-=======
 use DateTime;
 use Illuminate\Http\Request;
->>>>>>> master
 use Illuminate\Support\Facades\Auth;
 
 class TrackerController extends Controller
@@ -17,7 +14,6 @@ class TrackerController extends Controller
         /** @var App\Models\User */
         $user = Auth::user();
         $product = $user->products()->findOrFail($product_id);
-<<<<<<< feature/product-linking
         $show_listings = false;
         // Find product from other stores
         if (isset($product->upc)) {
@@ -29,8 +25,6 @@ class TrackerController extends Controller
             }
         }
 
-        return view('view-tracker', ['product' => $product, 'show_listings' => $show_listings]);
-=======
         $target = null;
         if (isset($product->pivot->type) and isset($product->pivot->threshold) and isset($product->pivot->compare_time)) {
             $target = ['threshold' => $product->pivot->threshold, 'type' => $product->pivot->type, 'compare_time' => $product->pivot->compare_time];
@@ -43,7 +37,7 @@ class TrackerController extends Controller
             array_push($labels, $datum->created_at);
         }
 
-        return view('view-tracker', ['product' => $product, 'prices' => $prices, 'labels' => $labels, 'target' => $target]);
+        return view('view-tracker', ['product' => $product, 'prices' => $prices, 'labels' => $labels, 'target' => $target, 'show_listings' => $show_listings]);
     }
 
     public function update(string $product_id)
@@ -53,7 +47,6 @@ class TrackerController extends Controller
         $product = $user->products()->findOrFail($product_id);
 
         return view('update-tracker', ['tracker' => $product->pivot]);
->>>>>>> master
     }
 
     public function remove(string $product_id)
@@ -75,7 +68,6 @@ class TrackerController extends Controller
         return redirect('/dashboard');
     }
 
-<<<<<<< feature/product-linking
     public function others(string $product_id)
     {
         /** @var App\Models\User */
@@ -108,7 +100,8 @@ class TrackerController extends Controller
         $user->products()->attach($product_id);
 
         return 200;
-=======
+    }
+
     public function edit(Request $request, string $product_id)
     {
         $validated = $request->validate([
@@ -118,6 +111,8 @@ class TrackerController extends Controller
             'Compare_value' => ['integer', 'required', 'between:1,2147483647'],
         ]);
 
+        $product = Product::findOrFail($product_id);
+
         $product->pivot->tracker_name = $request->input('Tracker_name');
         $product->pivot->type = $request->input('Compare_type');
         $product->pivot->compare_time = DateTime::createFromFormat('Y-m-d', $request->input('Compare_date'))->format('Y-m-d H:i:s');
@@ -126,6 +121,5 @@ class TrackerController extends Controller
         $product->pivot->save();
 
         return redirect(route('trackers.view', ['product_id' => $product_id]));
->>>>>>> master
     }
 }
