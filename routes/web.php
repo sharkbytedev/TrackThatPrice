@@ -30,4 +30,8 @@ Route::patch('/trackers/{product_id}/edit', [TrackerController::class, 'edit'])-
 Route::get('/trackers/{product_id}/remove', [TrackerController::class, 'remove'])->middleware(['auth'])->name('trackers.remove');
 Route::delete('/trackers/{product_id}/delete', [TrackerController::class, 'delete'])->middleware(['auth'])->name('trackers.delete');
 
+Route::get('/trackers/{product_id}/listings', [TrackerController::class, 'others'])->middleware(['auth'])->name('trackers.others');
+
+Route::post('/tracker/track/{product_id}', [TrackerController::class, 'quickTrack'])->middleware(['auth'])->name('trackers.quickTrack');
+
 require __DIR__.'/auth.php';
