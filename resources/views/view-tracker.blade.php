@@ -37,9 +37,20 @@
             <img class="m-auto" src="{{ $product->image_url }}" alt="{{ $product->product_name }}">
         @endif
         <br>
-        <h3 class="w-full text-center text-xl"><b>Historical data</b></h3>
-        <div class="m-auto p-9 text-center w-1/3 bg-slate-200">
-            <h1 class="text-xl">Coming soon</h1>
+        <div class="m-auto p-2 w-1/2 bg-slate-200 relative">
+            @if (count($prices) <= 0)
+                <div class="text-center w-full h-full absolute left-0 z-10 top-0 backdrop-blur-sm table">
+                    <span class="text-2xl table-cell align-middle">There is currently no price history</span>
+                </div>
+            @endif
+            <h3 class="w-full text-center text-xl"><b>Historical data</b></h3>
+            <canvas id="priceHistory" class="m-auto text-center w-full bg-slate-200">
+            </canvas>
+            <div>
+                <button id="YTDButton" title="Show data from the past 12 months" class="bg-slate-300 mx-1 p-2 rounded-lg hover:bg-slate-400">Year</button>
+                <button id="monthButton" title="Show data from the past 30 days" class="bg-slate-300 mx-1 p-2 rounded-lg hover:bg-slate-400">Month</button>
+                <button id="weekButton" title="Show data from the past 7 days" class="bg-slate-300 mx-1 p-2 rounded-lg hover:bg-slate-400">Week</button>
+            </div>
         </div>
     </div>
     @if (!$product->valid)
@@ -55,4 +66,18 @@
             </p>
         </div>
     @endif
+    <script>
+        const raw_prices = {{ json_encode($prices) }};
+        const raw_timestamps = {!! json_encode($labels, JSON_HEX_TAG) !!};
+    </script>
+    @if (isset($target))
+        <script>
+            const raw_target_data = {!! json_encode($target, JSON_HEX_TAG) !!};
+        </script>
+    @else
+        <script>
+            const raw_target_data = null;
+        </script>
+    @endif
+    @vite(['resources/js/graphs/priceHistory.js'])
 </x-app-layout>
