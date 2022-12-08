@@ -68,7 +68,7 @@ class EbayHandler implements ProductHandler
                 $details->currency = $currency;
                 break;
         }
-        
+
         $details->store_id = explode('/', parse_url($product->product_url, PHP_URL_PATH))[2];
 
         try {
