@@ -9,4 +9,8 @@ class ProductDetails
     public string $name;
 
     public string $image_url;
+
+    public string $store_id;
+
+    public string $upc;
 }

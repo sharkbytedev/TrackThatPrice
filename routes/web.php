@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TrackerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,5 +21,11 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('/trackers/{product_id}', [TrackerController::class, 'view'])->middleware(['auth'])->name('trackers.view');
+
+Route::get('/trackers/{product_id}/remove', [TrackerController::class, 'remove'])->middleware(['auth'])->name('trackers.remove');
+
+Route::delete('/trackers/{product_id}/delete', [TrackerController::class, 'delete'])->middleware(['auth'])->name('trackers.delete');
 
 require __DIR__.'/auth.php';
