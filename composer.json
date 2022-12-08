@@ -7,10 +7,12 @@
     "require": {
         "php": "^8.0.2",
         "doctrine/dbal": "^3.4",
-        "guzzlehttp/guzzle": "^7.2",
+        "guzzlehttp/guzzle": "^7.5",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
+        "symfony/http-client": "^6.1",
+        "symfony/mailgun-mailer": "^6.1",
         "weidner/goutte": "^2.2"
     },
     "require-dev": {
