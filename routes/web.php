@@ -24,8 +24,10 @@ Route::get('/dashboard', function () {
 
 Route::get('/trackers/{product_id}', [TrackerController::class, 'view'])->middleware(['auth'])->name('trackers.view');
 
-Route::get('/trackers/{product_id}/remove', [TrackerController::class, 'remove'])->middleware(['auth'])->name('trackers.remove');
+Route::get('/trackers/{product_id}/update', [TrackerController::class, 'update'])->middleware(['auth'])->name('trackers.update');
+Route::patch('/trackers/{product_id}/edit', [TrackerController::class, 'edit'])->middleware(['auth'])->name('trackers.edit');
 
+Route::get('/trackers/{product_id}/remove', [TrackerController::class, 'remove'])->middleware(['auth'])->name('trackers.remove');
 Route::delete('/trackers/{product_id}/delete', [TrackerController::class, 'delete'])->middleware(['auth'])->name('trackers.delete');
 
 Route::get('/trackers/{product_id}/listings', [TrackerController::class, 'others'])->middleware(['auth'])->name('trackers.others');
