@@ -45,6 +45,9 @@ class User extends Authenticatable
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'product_user')->withTimestamps()->withPivot('tracker_name', 'product_id', 'type', 'threshold', 'enabled', 'compare_time');
+        return $this
+            ->belongsToMany(Product::class, 'product_user')
+            ->withTimestamps()
+            ->withPivot('tracker_name', 'product_id', 'type', 'threshold', 'enabled', 'compare_time');
     }
 }

@@ -53,8 +53,8 @@ class EbayHandler implements ProductHandler
 
         $details = new ProductDetails();
         $details->name = $website->filter('h1[class="x-item-title__mainTitle"] > span')->eq(0)->text();
-        $price_text = str_replace(',', '', explode('$', $website->filter('#prcIsum')->eq(0)->text()));
-        $details->price = floatval(end($price_text)) * 100;
+        $price_text = $website->filter('span[itemprop="price"]')->eq(0)->attr('content');
+        $details->price = floatval($price_text) * 100;
 
         $details->store_id = explode('/', parse_url($product->product_url, PHP_URL_PATH))[2];
 
