@@ -20,11 +20,13 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     $products = auth()->user()->products()->get();
+
     return view('dashboard', ['products' => $products]);
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/trackers/archived', function () {
     $products = auth()->user()->products()->get();
+
     return view('trackers.archived', ['products' => $products]);
 })->middleware(['auth'])->name('trackers.archived');
 
