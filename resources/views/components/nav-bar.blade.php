@@ -7,11 +7,6 @@
     </div>
     {{-- Nav links --}}
     <div class="hidden sm:flex w-full h-full flex-row">
-        <div class="flex-none w-32 text-center border-x-2 py-3 dark:border-slate-600">
-            <x-nav-link :href="'#about'" class="dark:text-slate-200 text-black">
-                About
-            </x-nav-link>
-        </div>
         <div class="flex-none w-32 text-center border-r-2 py-3 dark:border-slate-600">
             <x-nav-link :href="'#prices'" class="dark:text-slate-200 text-black">
                 Prices
