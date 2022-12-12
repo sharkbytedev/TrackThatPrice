@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('product_user', function (Blueprint $table) {
-            $table->boolean('archived');
+            $table->boolean('archived')->default(0);;
         });
     }
 
