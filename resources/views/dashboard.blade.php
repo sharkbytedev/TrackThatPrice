@@ -70,7 +70,7 @@
         @endif
     @endforeach
 @else
-    <p> No products found! </p>
+    <p class="justify-items-center grid"> No trackers found! Create one using the "Create A Tracker" button! </p>
 @endif
 
 </body>
