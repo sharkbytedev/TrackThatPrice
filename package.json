@@ -17,6 +17,8 @@
     },
     "dependencies": {
         "chart.js": "^3.9.1",
-        "chartjs-plugin-annotation": "^2.0.1"
+        "chartjs-plugin-annotation": "^2.0.1",
+        "puppeteer": "^19.4.0",
+        "yargs": "^17.6.2"
     }
 }
