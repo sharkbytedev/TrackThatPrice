@@ -12,5 +12,7 @@ class ProductDetails
 
     public string $store_id;
 
+    public string $currency;
+
     public ?string $upc = null;
 }
