@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,11 +17,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        echo 'Generating users\n';
+        User::factory()->count(50)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $this->call([
+            ProductSeeder::class,
+        ]);
+
+        $users = User::all();
+        $product_ids = Product::pluck('id')->all();
+
+        foreach ($users as $user) {
+            $indexes = array_rand($product_ids, 10);
+            $ids = [];
+            foreach ($indexes as $i) {
+                array_push($ids, $product_ids[$i]);
+            }
+            $user->products()->attach($ids);
+        }
     }
 }
