@@ -9,9 +9,10 @@ const options = yargs.option("h", {alias: "html", type: "string"}).argv;
 const renderHtml = async (urls) => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
+    
     output = {}
     for (const url of urls) {
-        console.log(url)
+        // console.log(url)
         // await page.setContent(html);
         try {
             let status = await page.goto(url, {timeout: 40000});
