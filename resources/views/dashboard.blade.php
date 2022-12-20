@@ -22,7 +22,6 @@
 @if (count($products) > 0)
     @foreach($products as $product)
         @if($product->pivot->archived == false)
-            {{-- {{ dump($product) }} --}}
             <x-product-card :product="$product" />
         @endif
     @endforeach

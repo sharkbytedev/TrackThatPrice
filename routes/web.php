@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/dashboard', function () {
+Route::get('/trackers', function () {
     $products = auth()->user()->products()->get();
 
     return view('dashboard', ['products' => $products]);
