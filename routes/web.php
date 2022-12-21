@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('/trackers', function () {
-    $products = auth()->user()->products()->paginate(5);
+    $products = auth()->user()->products()->paginate(10);
 
     return view('dashboard', ['products' => $products]);
 })->middleware(['auth'])->name('dashboard');

@@ -1,4 +1,4 @@
-<div class="shadow rounded-xl m-2 bg-slate-50 flex p-1 mx-auto overflow-hidden w-full">
+<div onclick="window.location.href='{{route('trackers.view', ['product_id'=>$product->id])}}'" class="hover:border-solid border hover:border-black shadow rounded-xl m-2 bg-slate-50 flex p-1 mx-auto overflow-hidden w-full">
     @if($product->image_url != null)
         <img src="{{$product->image_url}}" class="justify-self-center bg-slate-200 rounded-xl w-32 h-32 object-contain break-after-column mt-0 mr-1 float-left grow-0 shrink-0" alt="{{$product->product_name != null ? ($product->product_name . "Image") : "Product Image"}}">
     @else
@@ -39,16 +39,18 @@
                 </script>
             @endif
         </div>
-
-        <a href="{{ route('trackers.view', ['product_id'=>$product->id]) }}" class="flex-none">
-            <x-primary-button class="flex-none  dark:border-slate-200 mr-1">
-                <b>Product Info</b>
-            </x-primary-button>
-        </a>
-        <a href="{{ route('trackers.archive', ['product_id'=>$product->id])}}" class="flex-none">
-            <x-primary-button class="flex-none  dark:border-slate-200 mr-1">
-                <b>Archive</b>
-            </x-primary-button>
-        </a>
+        <p class="w-full text-sm text-gray-500">Last updated: {{$product->updated_at}}</p>
+        <div class="flex w-full">
+            <a href="{{ route('trackers.archive', ['product_id'=>$product->id])}}" class="flex-none">
+                <button title="Archive tracker" class="flex-none dark:border-slate-200 mr-1 hover:bg-slate-200 p-1 rounded-md">
+                    <img src="/images/archive.svg" alt="Archive icon" width="20" height="20">
+                </button>
+            </a>
+            <a href="{{ route('trackers.remove', ['product_id'=>$product->id])}}" class="flex-none">
+                <button title="Delete tracker" class="flex-none dark:border-slate-200 mr-1 hover:bg-slate-200 p-1 rounded-md">
+                    <img src="/images/trash-2.svg" alt="Delete icon" width="20" height="20">
+                </button>
+            </a>
+        </div>
     </div>
 </div>
