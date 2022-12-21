@@ -1,5 +1,4 @@
 <x-app-layout>
-<!DOCTYPE html>
 <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">Your Trackers</h2>
     <a href="{{ route("trackers.new") }}" class="flex-none">
@@ -20,15 +19,17 @@
 
 <br>
 @if (count($products) > 0)
-    @foreach($products as $product)
-        @if($product->pivot->archived == false)
-            <x-product-card :product="$product" />
-        @endif
-    @endforeach
+    <div class="w-full md:w-2/3 m-auto">
+        @foreach($products as $product)
+            @if($product->pivot->archived == false)
+                <x-product-card :product="$product" />
+            @endif
+        @endforeach
+        {{ $products->links() }}
+    </div>
 @else
     <p class="justify-items-center grid"> No trackers found! Create one using the "Create A Tracker" button! </p>
 @endif
 
 </body>
-</html>
 </x-app-layout>
