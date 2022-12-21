@@ -54,7 +54,14 @@ class AmazonHandler implements ProductHandler
         $details->name = $website->filter('div[class="product-title"]')->eq(0)->text();
         //On Alibaba, price is formatted as (currency)$123.45, so i filter out the non-numbers
         $price_text = $website->filter('div[class="price-item"]')->eq(1)->eq(0)->attr('content');
-        $details->price = preg_replace("/[^0-9]/", "", $price_text);   
+        for(int i = 0; i < $price_text->count(); i++){
+            if(preg_match("/[^0-9]/", $price_text[i])){
+                $pricePos = i;
+                break;
+            }
+        }
+        $details->price = substr($price_text, $pricePos);
+        $details->currency = substr($price_text, 0, $pricePos); 
 
         $details->store_id = explode('/', parse_url($product->product_url, PHP_URL_PATH))[2];
 
