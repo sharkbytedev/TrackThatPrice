@@ -65,6 +65,9 @@ class AmazonHandler implements ProductHandler
         $asin = explode('/', explode('/dp/', parse_url($url, PHP_URL_PATH))[1])[0];
         $details->store_id = $asin;
 
+        // Amazon prices are displayed in whatever currency the site is for
+        $details->currency = null;
+
         try {
             // Get an image url. Often on Amazon there's more than one, so we'll just get the first one.
             $details->image_url = $website->filter('#imgTagWrapperId')->filter('img')->eq(0)->attr('src');
