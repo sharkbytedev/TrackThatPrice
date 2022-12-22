@@ -12,7 +12,7 @@ use Goutte\Client;
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 
-class AmazonHandler implements ProductHandler
+class AlibabaHandler implements ProductHandler
 {
     const base_url = [
         'https://www.alibaba.com/',
@@ -47,16 +47,16 @@ class AmazonHandler implements ProductHandler
         $client = new Client();
         $client->setServerParameter('HTTP_USER_AGENT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36');
         $website = $client->request('GET', $product->product_url);
-        EbayHandler::handleStatusCode($client->getResponse()->getStatusCode());
+        AlibabaHandler::handleStatusCode($client->getResponse()->getStatusCode());
 
         $details = new ProductDetails();
-        //
+        
         $details->name = $website->filter('div[class="product-title"]')->eq(0)->text();
-        //On Alibaba, price is formatted as (currency)$123.45, so i filter out the non-numbers
+
         $price_text = $website->filter('div[class="price-item"]')->eq(1)->eq(0)->attr('content');
-        for(int i = 0; i < $price_text->count(); i++){
-            if(preg_match("/[^0-9]/", $price_text[i])){
-                $pricePos = i;
+        for($i = 0; $i < count($price_text); $i++){
+            if(preg_match("/[^0-9]/", $price_text[$i])){
+                $pricePos = $i;
                 break;
             }
         }
@@ -65,13 +65,7 @@ class AmazonHandler implements ProductHandler
 
         $details->store_id = explode('/', parse_url($product->product_url, PHP_URL_PATH))[2];
 
-        try {
-            $upc = $website->filter('span[itemprop="gtin13"] > div > span')->eq(0)->text();
-            $details->upc = $upc;
-        } catch (InvalidArgumentException $e) {
-            Log::notice('UPC not found for product', ['product_id' => $product->id, 'error' => $e]);
-            $details->upc = '';
-        }
+        $details->upc = '';
         // No errors were caught, so return true
         return $details;
     }
