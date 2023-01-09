@@ -21,7 +21,8 @@ Route::get('/', function () {
 Route::get('/trackers', function () {
     $products = auth()->user()->products()->wherePivot('archived', 0)->paginate(10);
     $archived_count = auth()->user()->products()->wherePivot('archived', 1)->count();
-    return view('dashboard', ['products' => $products, 'archived_count'=>$archived_count]);
+
+    return view('dashboard', ['products' => $products, 'archived_count' => $archived_count]);
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/trackers/archived', function () {
