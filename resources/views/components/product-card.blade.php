@@ -22,7 +22,28 @@
                 @endif
             </p>
             @if (isset($product->price))
-                <p id="product-{{ $product->id }}" class="w-full md:w-1/4 mr-1 self-center text-xl md:absolute md:right-0 md:text-right md:inline"></p>
+                <div class="w-full md:w-1/4 mr-1 self-center text-xl md:absolute md:right-0 md:text-right md:inline flex-row">
+                    <p 
+                        id="product-{{ $product->id }}" 
+                        class="
+                        inline
+                        self-center 
+                        text-xl 
+                        @if ($product->price > $product->history()->first()->price)
+                            text-red-500
+                        @elseif ($product->price < $product->history()->first()->price)
+                            text-green-500
+                        @endif 
+                        "
+                    >
+                    </p>
+                    @if ($product->price > $product->history()->first()->price)
+                        <img class="inline-block fill-red-500" src="/images/chevron-up.svg" width="20" height="20" alt="">
+                    @elseif ($product->price < $product->history()->first()->price)
+                        <img class="inline-block fill-green-500" src="/images/chevron-down.svg" width="20" height="20" alt="">
+                    @endif
+                    
+                </div>
                 <script>
                     try {
                         document.getElementById("product-{{ $product->id }}").innerText = new Intl.NumberFormat(
