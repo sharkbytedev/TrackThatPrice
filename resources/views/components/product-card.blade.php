@@ -22,7 +22,7 @@
                 @endif
             </p>
             @if (isset($product->price))
-                <div class="w-full md:w-1/4 mr-1 self-center text-xl md:absolute md:right-0 md:text-right md:inline flex-row">
+                <div class="w-full md:w-1/3 mr-1 self-center text-xl md:absolute md:right-0 md:text-right md:inline flex-row">
                     <p 
                         id="product-{{ $product->id }}" 
                         class="
@@ -37,11 +37,16 @@
                         "
                     >
                     </p>
-                    @if ($product->price > $product->history()->first()->price)
-                        <img class="inline-block fill-red-500" src="/images/chevron-up.svg" width="20" height="20" alt="">
-                    @elseif ($product->price < $product->history()->first()->price)
-                        <img class="inline-block fill-green-500" src="/images/chevron-down.svg" width="20" height="20" alt="">
-                    @endif
+                    <div class="">
+                        <span class="text-sm">
+                            {{ abs(round((($product->history()->first()->price - $product->price) / $product->history()->first()->price) * 100.0, 1)) }}%
+                        </span>
+                        @if ($product->price > $product->history()->first()->price)
+                            <img class="inline-block fill-red-500" src="/images/chevron-up.svg" width="20" height="20" alt="">
+                        @elseif ($product->price < $product->history()->first()->price)
+                            <img class="inline-block fill-green-500" src="/images/chevron-down.svg" width="20" height="20" alt="">
+                        @endif
+                    </div>
                     
                 </div>
                 <script>
