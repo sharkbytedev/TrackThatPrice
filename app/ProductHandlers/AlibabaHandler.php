@@ -51,22 +51,20 @@ class AlibabaHandler implements ProductHandler
 
         $details = new ProductDetails();
         
-        $details->name = $website->filter('div[class="product-title"]')->eq(0)->text();
+        $details->name = $website->filter('.product-title')->eq(0)->eq(0)->text();
 
-        $price_text = $website->filter('div[class="price-item"]')->eq(1)->eq(0)->attr('content');
-        for($i = 0; $i < count($price_text); $i++){
-            if(preg_match("/[^0-9]/", $price_text[$i])){
-                $pricePos = $i;
-                break;
-            }
-        }
-        $details->price = substr($price_text, $pricePos);
-        $details->currency = substr($price_text, 0, $pricePos); 
+        //$pricePos = preg_match("/[^0-9]/", $price_text[$i], PREG_OFFSET_CAPTURE);
+        //$details->price = substr($price_text, $pricePos);
+        //$details->currency = substr($price_text, 0, $pricePos); 
+
+        $details->image_url = $website->filter('.price-item')->eq(1)->eq(0)->text(); //just testing
 
         $details->store_id = explode('/', parse_url($product->product_url, PHP_URL_PATH))[2];
 
         $details->upc = '';
-        // No errors were caught, so return true
+        $details->price = 100;
+        $details->currency = "CAD$";
+        
         return $details;
     }
 }
