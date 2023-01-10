@@ -25,7 +25,7 @@ class ProductFactory extends Factory
             'store' => array_rand(['amazon', 'ebay']),
             'upc' => fake()->ean13(),
             'price' => rand(1000, 10000),
-            'currency' => array_rand($codes),
+            'currency' => $codes[array_rand($codes)],
             'valid' => 1,
         ];
     }
