@@ -52,18 +52,18 @@ class AlibabaHandler implements ProductHandler
         $details = new ProductDetails();
         
         $details->name = $website->filter('.product-title')->eq(0)->eq(0)->text();
+        $rawDetails = $website->filter('head > script:nth-child(52)')->eq(0)->text();
+        $decodedDetails = json_decode($rawDetails);
+        $details->image_url = $decodedDetails[0]->image;
 
-        //$pricePos = preg_match("/[^0-9]/", $price_text[$i], PREG_OFFSET_CAPTURE);
-        //$details->price = substr($price_text, $pricePos);
-        //$details->currency = substr($price_text, 0, $pricePos); 
-
-        $details->image_url = $website->filter('.price-item')->eq(1)->eq(0)->text(); //just testing
+        $rawPrice = $website->filter('.price-item')->filter('.price')->eq(0)->text();
+        $priceCharsToRemove = array("$", ".", ",");
+        $details->price = str_replace($priceCharsToRemove, "", $rawPrice);
+        $details->currency = "US$"; //when the scraper grabs the information from alibaba, it automatically sets the currency to US dollar
 
         $details->store_id = explode('/', parse_url($product->product_url, PHP_URL_PATH))[2];
 
         $details->upc = '';
-        $details->price = 100;
-        $details->currency = "CAD$";
         
         return $details;
     }
