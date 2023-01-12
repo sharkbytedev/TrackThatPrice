@@ -9,8 +9,6 @@ use App\Exceptions\QueryExceptions\QueryException;
 use App\Exceptions\QueryExceptions\ServerError;
 use App\Models\Product;
 use Goutte\Client;
-use Illuminate\Support\Facades\Log;
-use InvalidArgumentException;
 
 class AlibabaHandler implements ProductHandler
 {
@@ -50,21 +48,21 @@ class AlibabaHandler implements ProductHandler
         AlibabaHandler::handleStatusCode($client->getResponse()->getStatusCode());
 
         $details = new ProductDetails();
-        
+
         $details->name = $website->filter('.product-title')->eq(0)->eq(0)->text();
         $rawDetails = $website->filter('head > script:nth-child(52)')->eq(0)->text();
         $decodedDetails = json_decode($rawDetails);
         $details->image_url = $decodedDetails[0]->image;
 
         $rawPrice = $website->filter('.price-item')->filter('.price')->eq(0)->text();
-        $priceCharsToRemove = array("$", ".", ",");
-        $details->price = str_replace($priceCharsToRemove, "", $rawPrice);
-        $details->currency = "US$"; //when the scraper grabs the information from alibaba, it automatically sets the currency to US dollar
+        $priceCharsToRemove = ['$', '.', ','];
+        $details->price = str_replace($priceCharsToRemove, '', $rawPrice);
+        $details->currency = 'US$'; //when the scraper grabs the information from alibaba, it automatically sets the currency to US dollar
 
         $details->store_id = explode('/', parse_url($product->product_url, PHP_URL_PATH))[2];
 
         $details->upc = '';
-        
+
         return $details;
     }
 }
