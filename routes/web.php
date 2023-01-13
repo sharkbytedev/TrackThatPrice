@@ -19,8 +19,22 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $products = auth()->user()->products()->get();
+
+    return view('dashboard', ['products' => $products]);
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('/trackers/archived', function () {
+    $products = auth()->user()->products()->get();
+
+    return view('trackers.archived', ['products' => $products]);
+})->middleware(['auth'])->name('trackers.archived');
+
+Route::match(['get', 'post'], '/trackers/new', [TrackerController::class, 'new'], function () {
+})->middleware(['auth'])->name('trackers.new');
+
+Route::get('/trackers/archive/{product_id}', [TrackerController::class, 'archive'])->middleware(['auth'])->name('trackers.archive');
+Route::get('/trackers/unarchive/{product_id}', [TrackerController::class, 'unarchive'])->middleware(['auth'])->name('trackers.unarchive');
 
 Route::get('/trackers/{product_id}', [TrackerController::class, 'view'])->middleware(['auth'])->name('trackers.view');
 
