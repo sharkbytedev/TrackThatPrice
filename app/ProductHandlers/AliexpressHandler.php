@@ -8,14 +8,11 @@ use App\Exceptions\QueryExceptions\NotFoundError;
 use App\Exceptions\QueryExceptions\QueryException;
 use App\Exceptions\QueryExceptions\ServerError;
 use App\Models\Product;
-use Goutte\Client;
 use App\Utils\PuppetLoad;
-use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 use Symfony\Component\DomCrawler\Crawler;
 
-
-class AliexpressHandler implements ProductHandler 
+class AliexpressHandler implements ProductHandler
 {
     protected static function handleStatusCode(int $code)
     {
@@ -43,7 +40,7 @@ class AliexpressHandler implements ProductHandler
     {
         $url = $product->product_url;
         $website = PuppetLoad::load([$product->product_url])[$product->product_url];
-        
+
         if (is_numeric($website)) {
             AliexpressHandler::handleStatusCode($website);
         }
@@ -55,28 +52,23 @@ class AliexpressHandler implements ProductHandler
         $price_string = '';
         try {
             $price_string = $website->filter('.uniform-banner-box-price')->eq(0)->text();
-            
         } catch (InvalidArgumentException $e) {
             $price_string = $website->filter('.product-price-value')->eq(0)->text();
         }
 
         if (str_starts_with($price_string, 'C$ ')) {
             $details->currency = 'CAD';
-        }
-        elseif (str_starts_with($price_string, 'US ')) {
+        } elseif (str_starts_with($price_string, 'US ')) {
             $details->currency = 'USD';
-        }
-        elseif (str_starts_with($price_string, '￡')) {
+        } elseif (str_starts_with($price_string, '￡')) {
             $details->currency = 'GBP';
-        }
-        elseif (str_starts_with($price_string, '€ ')) {
+        } elseif (str_starts_with($price_string, '€ ')) {
             $details->currency = 'EUR';
         }
 
-        $details->price = intval(floatval(explode(' ', $price_string)[1])*100);
+        $details->price = intval(floatval(explode(' ', $price_string)[1]) * 100);
         $details->image_url = $website->filter('img.magnifier-image')->eq(0)->attr('src');
 
         return $details;
-
     }
 }
