@@ -17,7 +17,7 @@ class PuppetLoad
         $base = base_path();
         exec("node {$base}/puppet.js -h {$u}", $output, $code);
         if ($code == 0) {
-            return json_decode(implode('', $output));
+            return json_decode(implode('', $output), true);
         } else {
             Log::error($output);
             throw new \Error("Puppeteer gave non-zero exit code {$code}");
