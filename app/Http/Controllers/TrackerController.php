@@ -66,7 +66,7 @@ class TrackerController extends Controller
         $product = $user->products()->findOrFail($product_id);
         $user->products()->detach($product->id);
 
-        return redirect('/dashboard');
+        return redirect(route('dashboard'));
     }
 
     public function others(string $product_id)
