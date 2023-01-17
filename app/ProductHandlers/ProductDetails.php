@@ -10,9 +10,9 @@ class ProductDetails
 
     public string $image_url;
 
-    public string $store_id;
+    public ?string $store_id;
 
-    public string $currency;
+    public ?string $currency;
 
     public ?string $upc = null;
 }
