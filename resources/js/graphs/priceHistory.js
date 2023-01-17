@@ -27,7 +27,7 @@ const getIntervalData = (interval_str) => {
     for (let i in r_timestamps) {
         if (timestamps[timestamps.length-1] - r_timestamps[i] >= interval) {
             timestamps.push(r_timestamps[i]);
-            prices.push(raw_prices[i])
+            prices.push(raw_prices[i]/100.0)
         }
     }
     return {

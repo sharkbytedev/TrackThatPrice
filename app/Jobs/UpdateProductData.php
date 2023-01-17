@@ -74,7 +74,8 @@ class UpdateProductData implements ShouldQueue
         if (isset($error)) {
             foreach ($this->product->users()->get() as $user) {
                 Log::alert('Sending error notification', ['user' => $user]);
-                NotifyUser::dispatch($user, new ProductError($this->product, $error));
+                //The following is commented out because emails don't work correctly during development
+                //NotifyUser::dispatch($user, new ProductError($this->product, $error));
             }
 
             return;
