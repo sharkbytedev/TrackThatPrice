@@ -28,23 +28,27 @@
                         class="
                         inline
                         self-center 
-                        text-xl 
-                        @if ($product->price > $product->history()->first()->price)
-                            text-red-500
-                        @elseif ($product->price < $product->history()->first()->price)
-                            text-green-500
-                        @endif 
+                        text-xl
+                        @if (isset($product->history()->first()->price))
+                            @if ($product->price > $product->history()->first()->price)
+                                text-red-500
+                            @elseif ($product->price < $product->history()->first()->price)
+                                text-green-500
+                            @endif
+                        @endif
                         "
                     >
                     </p>
                     <div class="">
-                        <span class="text-sm">
-                            {{ abs(round((($product->history()->first()->price - $product->price) / $product->history()->first()->price) * 100.0, 1)) }}%
-                        </span>
-                        @if ($product->price > $product->history()->first()->price)
-                            <img class="inline-block fill-red-500" src="/images/chevron-up.svg" width="20" height="20" alt="">
-                        @elseif ($product->price < $product->history()->first()->price)
-                            <img class="inline-block fill-green-500" src="/images/chevron-down.svg" width="20" height="20" alt="">
+                        @if (isset($product->history()->first()->price))
+                            <span class="text-sm">
+                                {{ abs(round((($product->history()->first()->price - $product->price) / $product->history()->first()->price) * 100.0, 1)) }}%
+                            </span>
+                            @if ($product->price > $product->history()->first()->price)
+                                <img class="inline-block fill-red-500" src="/images/chevron-up.svg" width="20" height="20" alt="">
+                            @elseif ($product->price < $product->history()->first()->price)
+                                <img class="inline-block fill-green-500" src="/images/chevron-down.svg" width="20" height="20" alt="">
+                            @endif
                         @endif
                     </div>
                     
