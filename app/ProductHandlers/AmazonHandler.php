@@ -66,7 +66,23 @@ class AmazonHandler implements ProductHandler
         $details->store_id = $asin;
 
         // Amazon prices are displayed in whatever currency the site is for
-        $details->currency = null;
+        $host = $client->getRequest()->getServer()['HTTP_HOST'];
+        $exploded = explode('.', $host);
+        $tld = end($exploded);
+        switch ($tld) {
+            case 'com':
+                $details->currency = 'USD';
+                break;
+            case 'ca':
+                $details->currency = 'CAD';
+                break;
+            case 'uk':
+                $details->currency = 'GBP';
+                break;
+            default:
+                $details->currency = 'USD';
+                break;
+        }
 
         try {
             // Get an image url. Often on Amazon there's more than one, so we'll just get the first one.
