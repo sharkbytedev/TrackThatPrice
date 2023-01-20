@@ -29,6 +29,7 @@
                             <option value="" disabled selected>Select a store</option>
                             <option value="amazon">Amazon</option>
                             <option value="ebay">Ebay</option>
+                            <option value="alibaba">Alibaba</option>
                         </select>
                         <button class="bg-white ml-5 h-9 border border-black disabled:border-gray-500 p-1 disabled:text-gray-700" id="submit" name="submit" type="submit" disabled>Create tracker</button>
                     </div>

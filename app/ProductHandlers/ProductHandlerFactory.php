@@ -16,6 +16,8 @@ class ProductHandlerFactory
             case 'ebay':
                 return new EbayHandler();
                 break;
+            case 'alibaba':
+                return new AlibabaHandler();
             default:
                 throw new InvalidArgumentException("'$product->store' is not a supported store name");
         }

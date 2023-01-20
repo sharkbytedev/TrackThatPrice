@@ -13,8 +13,7 @@
             </div>
         </x-slot>
         <body>
-
-
+        
         <br>
         @if (count($products) > 0)
             @foreach($products as $product)
