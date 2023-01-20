@@ -35,4 +35,4 @@ Track That Price (TTP) is a web service that allows users to track the prices of
    `$ php artisan migrate`
    `$ php artisan migrate --seed # Optionally, add --seed to fill the database with auto-generated users and products`
 
-6. Run `start.bat` to run the app. By default, it is hosted at `http://localhost:8000`
+6. Run `start.bat` to run the app. By default, the app is hosted at `http://localhost:8000`
